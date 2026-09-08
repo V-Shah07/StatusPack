@@ -1,0 +1,187 @@
+{
+  "data": {
+    "attributes": {
+      "spans": [
+        {
+          "_dd": {
+            "apm_trace_id": "6a9f96f9000000004c6a51e009a7ef48"
+          },
+          "duration": 4221290421,
+          "meta": {
+            "error": {},
+            "expected_output": {},
+            "input": {
+              "messages": [
+                {
+                  "content": "You are an incident summarizer for a status page. Write a 2-3 sentence factual summary of a monitoring incident using ONLY the data provided. State what the data shows: how many checks failed, from which regions, the observed HTTP status codes vs. expected, response times, and duration. Do NOT speculate about root cause (database, deploy, network, etc.) unless the data explicitly states it. If the data does not indicate a cause, say the cause is not identifiable from the monitoring data. No markdown, plain text.",
+                  "role": "system"
+                },
+                {
+                  "content": "Incident data (JSON):\n{'service': 'httpbin-canary', 'public_id': 'izu-g6a-wku', 'failed_checks': 5, 'total_checks_in_window': 150, 'failing_locations': ['aws:ap-southeast-1', 'aws:eu-west-1', 'aws:us-east-1'], 'status_codes': {'503': 5}, 'expected_status': 200, 'response_ms_min': 63.4, 'response_ms_max': 902.0, 'first_fail': '2026-09-08T05:02:27.964000+00:00', 'last_fail': '2026-09-08T05:02:41.772000+00:00', 'duration_s': 13.8, 'failure_reasons': ['INCORRECT_ASSERTION', 'statusCode is expected 200, got 503']}\n\nWrite the factual incident summary.",
+                  "role": "user"
+                }
+              ],
+              "value": "Incident data (JSON):\n{'service': 'httpbin-canary', 'public_id': 'izu-g6a-wku', 'failed_checks': 5, 'total_checks_in_window': 150, 'failing_locations': ['aws:ap-southeast-1', 'aws:eu-west-1', 'aws:us-east-1'], 'status_codes': {'503': 5}, 'expected_status': 200, 'response_ms_min': 63.4, 'response_ms_max': 902.0, 'first_fail': '2026-09-08T05:02:27.964000+00:00', 'last_fail': '2026-09-08T05:02:41.772000+00:00', 'duration_s': 13.8, 'failure_reasons': ['INCORRECT_ASSERTION', 'statusCode is expected 200, got 503']}\n\nWrite the factual incident summary."
+            },
+            "metadata": {
+              "max_tokens": 400
+            },
+            "ml_app": "statuspack",
+            "model_name": "claude-opus-5",
+            "model_provider": "anthropic",
+            "model_settings": {
+              "max_tokens": 400
+            },
+            "output": {
+              "messages": [
+                {
+                  "content": "Between 05:02:27 and 05:02:41 UTC on 2026-09-08, the httpbin-canary service (public ID izu-g6a-wku) recorded 5 failed checks out of 150 in the monitoring window, lasting approximately 13.8 seconds. All 5 failures returned HTTP 503 instead of the expected 200, triggering an incorrect assertion, and originated from three locations: aws:ap-southeast-1, aws:eu-west-1, and aws:us-east-1. Response times during the window ranged from 63.4 ms to 902.0 ms; the cause is not identifiable from the available monitoring data.",
+                  "role": "assistant"
+                }
+              ],
+              "value": "Between 05:02:27 and 05:02:41 UTC on 2026-09-08, the httpbin-canary service (public ID izu-g6a-wku) recorded 5 failed checks out of 150 in the monitoring window, lasting approximately 13.8 seconds. All 5 failures returned HTTP 503 instead of the expected 200, triggering an incorrect assertion, and originated from three locations: aws:ap-southeast-1, aws:eu-west-1, and aws:us-east-1. Response times during the window ranged from 63.4 ms to 902.0 ms; the cause is not identifiable from the available monitoring data."
+            },
+            "span": {
+              "kind": "llm"
+            }
+          },
+          "metrics": {
+            "estimated_input_cost": 2290000,
+            "estimated_non_cached_input_cost": 2290000,
+            "estimated_output_cost": 5300000,
+            "estimated_total_cost": 7590000,
+            "input_tokens": 458,
+            "input_tokens_for_role_system": 222,
+            "input_tokens_for_role_user": 236,
+            "non_cached_input_tokens": 458,
+            "num_evaluations_errored": 0,
+            "num_evaluations_failed": 0,
+            "num_evaluations_passed": 0,
+            "num_evaluations_without_assessment": 0,
+            "output_tokens": 212,
+            "output_tokens_for_role_assistant": 212,
+            "prompt_cache_hit_rate": 0,
+            "total_tokens": 670
+          },
+          "ml_app": "statuspack",
+          "name": "anthropic.request",
+          "parent_id": "4401549987374699882",
+          "service": "statuspack",
+          "span_id": "534126866646157483",
+          "start": 1788843769519,
+          "start_ns": 1788843769519417610,
+          "status": "ok",
+          "tags": [
+            "env:",
+            "cost_estimate_status:success",
+            "error:0",
+            "source:integration",
+            "ml_app:statuspack",
+            "matched_model_name:claude-opus-5",
+            "version:",
+            "service:statuspack",
+            "matched_model_provider:anthropic",
+            "model_match:exact",
+            "ddtrace.version:2.18.0",
+            "language:python"
+          ],
+          "trace_id": "6a9f96f9000000004c6a51e009a7ef48",
+          "tv_span_summary": "{\"metrics\":{\"estimated_input_cost\":2290000,\"estimated_non_cached_input_cost\":2290000,\"estimated_output_cost\":5300000,\"estimated_total_cost\":7590000,\"input_tokens\":458,\"input_tokens_for_role_system\":222,\"input_tokens_for_role_user\":236,\"non_cached_input_tokens\":458,\"output_tokens\":212,\"output_tokens_for_role_assistant\":212,\"prompt_cache_hit_rate\":0,\"total_tokens\":670}}"
+        },
+        {
+          "_dd": {
+            "apm_trace_id": "6a9f96f9000000004c6a51e009a7ef48"
+          },
+          "duration": 4221557834,
+          "meta": {
+            "error": {},
+            "expected_output": {},
+            "input": {
+              "messages": [
+                {
+                  "content": "You are an incident summarizer for a status page. Write a 2-3 sentence factual summary of a monitoring incident using ONLY the data provided. State what the data shows: how many checks failed, from which regions, the observed HTTP status codes vs. expected, response times, and duration. Do NOT speculate about root cause (database, deploy, network, etc.) unless the data explicitly states it. If the data does not indicate a cause, say the cause is not identifiable from the monitoring data. No markdown, plain text.",
+                  "role": "system"
+                },
+                {
+                  "content": "Incident data (JSON):\n{'service': 'httpbin-canary', 'public_id': 'izu-g6a-wku', 'failed_checks': 5, 'total_checks_in_window': 150, 'failing_locations': ['aws:ap-southeast-1', 'aws:eu-west-1', 'aws:us-east-1'], 'status_codes': {'503': 5}, 'expected_status': 200, 'response_ms_min': 63.4, 'response_ms_max': 902.0, 'first_fail': '2026-09-08T05:02:27.964000+00:00', 'last_fail': '2026-09-08T05:02:41.772000+00:00', 'duration_s': 13.8, 'failure_reasons': ['INCORRECT_ASSERTION', 'statusCode is expected 200, got 503']}\n\nWrite the factual incident summary.",
+                  "role": "user"
+                }
+              ],
+              "value": "Incident data (JSON):\n{'service': 'httpbin-canary', 'public_id': 'izu-g6a-wku', 'failed_checks': 5, 'total_checks_in_window': 150, 'failing_locations': ['aws:ap-southeast-1', 'aws:eu-west-1', 'aws:us-east-1'], 'status_codes': {'503': 5}, 'expected_status': 200, 'response_ms_min': 63.4, 'response_ms_max': 902.0, 'first_fail': '2026-09-08T05:02:27.964000+00:00', 'last_fail': '2026-09-08T05:02:41.772000+00:00', 'duration_s': 13.8, 'failure_reasons': ['INCORRECT_ASSERTION', 'statusCode is expected 200, got 503']}\n\nWrite the factual incident summary."
+            },
+            "metadata": {
+              "public_id": "izu-g6a-wku",
+              "service": "httpbin-canary"
+            },
+            "ml_app": "statuspack",
+            "model_name": "claude-opus-5",
+            "model_provider": "anthropic",
+            "model_settings": {},
+            "output": {
+              "messages": [
+                {
+                  "content": "Between 05:02:27 and 05:02:41 UTC on 2026-09-08, the httpbin-canary service (public ID izu-g6a-wku) recorded 5 failed checks out of 150 in the monitoring window, lasting approximately 13.8 seconds. All 5 failures returned HTTP 503 instead of the expected 200, triggering an incorrect assertion, and originated from three locations: aws:ap-southeast-1, aws:eu-west-1, and aws:us-east-1. Response times during the window ranged from 63.4 ms to 902.0 ms; the cause is not identifiable from the available monitoring data.",
+                  "role": "assistant"
+                }
+              ],
+              "value": "Between 05:02:27 and 05:02:41 UTC on 2026-09-08, the httpbin-canary service (public ID izu-g6a-wku) recorded 5 failed checks out of 150 in the monitoring window, lasting approximately 13.8 seconds. All 5 failures returned HTTP 503 instead of the expected 200, triggering an incorrect assertion, and originated from three locations: aws:ap-southeast-1, aws:eu-west-1, and aws:us-east-1. Response times during the window ranged from 63.4 ms to 902.0 ms; the cause is not identifiable from the available monitoring data."
+            },
+            "span": {
+              "kind": "llm"
+            }
+          },
+          "metrics": {
+            "estimated_input_cost": 2290000,
+            "estimated_non_cached_input_cost": 2290000,
+            "estimated_output_cost": 5300000,
+            "estimated_total_cost": 7590000,
+            "input_tokens": 458,
+            "input_tokens_for_role_system": 222,
+            "input_tokens_for_role_user": 236,
+            "non_cached_input_tokens": 458,
+            "num_evaluations_errored": 0,
+            "num_evaluations_failed": 0,
+            "num_evaluations_passed": 0,
+            "num_evaluations_without_assessment": 0,
+            "output_tokens": 212,
+            "output_tokens_for_role_assistant": 212,
+            "prompt_cache_hit_rate": 0,
+            "total_tokens": 670
+          },
+          "ml_app": "statuspack",
+          "name": "incident_summary",
+          "parent_id": "undefined",
+          "service": "statuspack",
+          "span_id": "4401549987374699882",
+          "start": 1788843769519,
+          "start_ns": 1788843769519281103,
+          "status": "ok",
+          "tags": [
+            "env:",
+            "cost_estimate_status:success",
+            "error:0",
+            "source:integration",
+            "ml_app:statuspack",
+            "matched_model_name:claude-opus-5",
+            "version:",
+            "service:statuspack",
+            "matched_model_provider:anthropic",
+            "model_match:exact",
+            "ddtrace.version:2.18.0",
+            "language:python"
+          ],
+          "trace_id": "6a9f96f9000000004c6a51e009a7ef48",
+          "tv_span_summary": "{\"metrics\":{\"estimated_input_cost\":2290000,\"estimated_non_cached_input_cost\":2290000,\"estimated_output_cost\":5300000,\"estimated_total_cost\":7590000,\"input_tokens\":458,\"input_tokens_for_role_system\":222,\"input_tokens_for_role_user\":236,\"non_cached_input_tokens\":458,\"output_tokens\":212,\"output_tokens_for_role_assistant\":212,\"prompt_cache_hit_rate\":0,\"total_tokens\":670}}"
+        }
+      ]
+    },
+    "id": "6d3db797-7f7f-4e7b-a97f-7cd357b4a033",
+    "type": "spans"
+  },
+  "meta": {
+    "elapsed": 35,
+    "page": null,
+    "request_id": "pddv1ChYzR2p2cjFfZlNwaVNReE9pOW1mZ21BIi0KHauMnEgFIRTMrNgznrA70SatCmuCrDnVI3UmIGJXEgzgU3cbf5J7yG5dFRQ",
+    "status": "done"
+  }
+}

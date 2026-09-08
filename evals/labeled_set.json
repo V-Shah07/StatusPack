@@ -1,0 +1,145 @@
+{
+  "description": "Labeled grounding-eval set for StatusPack's incident summarizer. Each item pairs the raw Datadog failure data (facts) with a candidate summary. 'grounded' summaries state only what the data supports; 'ungrounded' summaries inject a specific root-cause or claim the data does NOT show. The judge must flag the ungrounded ones. Grounded items derive from real StatusPack incidents (e.g. the httpbin-canary 503 on 2026-09-08) and realistic variants.",
+  "items": [
+    {
+      "id": "g01-canary-503-real",
+      "label": "grounded",
+      "injected_claim": null,
+      "facts": {"service": "httpbin-canary", "public_id": "izu-g6a-wku", "failed_checks": 8, "total_checks_in_window": 22, "failing_locations": ["aws:ap-southeast-1", "aws:eu-west-1", "aws:us-east-1"], "status_codes": {"503": 8}, "expected_status": 200, "response_ms_min": 15.9, "response_ms_max": 21.4, "first_fail": "2026-09-08T03:50:28+00:00", "last_fail": "2026-09-08T03:51:02+00:00", "duration_s": 34.0, "failure_reasons": ["INCORRECT_ASSERTION", "statusCode is expected 200, got 503"]},
+      "summary": "8 checks failed across all 3 regions (us-east-1, eu-west-1, ap-southeast-1), returning HTTP 503 where 200 was expected, over roughly 34 seconds. Response times stayed low (16-21 ms), so the endpoint was reachable but returning a server error. The cause is not identifiable from the monitoring data."
+    },
+    {
+      "id": "u01-canary-503-dbpool",
+      "label": "ungrounded",
+      "injected_claim": "database connection pool exhaustion",
+      "facts": {"service": "httpbin-canary", "public_id": "izu-g6a-wku", "failed_checks": 8, "total_checks_in_window": 22, "failing_locations": ["aws:ap-southeast-1", "aws:eu-west-1", "aws:us-east-1"], "status_codes": {"503": 8}, "expected_status": 200, "response_ms_min": 15.9, "response_ms_max": 21.4, "first_fail": "2026-09-08T03:50:28+00:00", "last_fail": "2026-09-08T03:51:02+00:00", "duration_s": 34.0, "failure_reasons": ["INCORRECT_ASSERTION", "statusCode is expected 200, got 503"]},
+      "summary": "8 checks failed across all 3 regions with HTTP 503, caused by database connection pool exhaustion on the backend. The outage lasted about 34 seconds before recovery."
+    },
+    {
+      "id": "g02-portfolio-timeout",
+      "label": "grounded",
+      "injected_claim": null,
+      "facts": {"service": "vivaan-portfolio", "public_id": "ubu-7wg-emr", "failed_checks": 3, "total_checks_in_window": 30, "failing_locations": ["aws:eu-west-1"], "status_codes": {}, "expected_status": 200, "response_ms_min": null, "response_ms_max": null, "first_fail": "2026-09-08T05:10:00+00:00", "last_fail": "2026-09-08T05:12:00+00:00", "duration_s": 120.0, "failure_reasons": ["TIMEOUT", "responseTime lessThan expected 5000, got null"]},
+      "summary": "3 consecutive checks from eu-west-1 timed out over a 2-minute window; the response-time assertion (under 5000 ms) could not be evaluated because no response was received. Other regions were unaffected. No HTTP status was recorded, so the cause is not identifiable from the monitoring data."
+    },
+    {
+      "id": "u02-portfolio-timeout-deploy",
+      "label": "ungrounded",
+      "injected_claim": "a bad deploy pushed 10 minutes earlier",
+      "facts": {"service": "vivaan-portfolio", "public_id": "ubu-7wg-emr", "failed_checks": 3, "total_checks_in_window": 30, "failing_locations": ["aws:eu-west-1"], "status_codes": {}, "expected_status": 200, "response_ms_min": null, "response_ms_max": null, "first_fail": "2026-09-08T05:10:00+00:00", "last_fail": "2026-09-08T05:12:00+00:00", "duration_s": 120.0, "failure_reasons": ["TIMEOUT", "responseTime lessThan expected 5000, got null"]},
+      "summary": "3 checks from eu-west-1 timed out over 2 minutes. This was triggered by a bad deploy pushed about 10 minutes earlier that broke the eu-west-1 edge node."
+    },
+    {
+      "id": "g03-api-500-partial",
+      "label": "grounded",
+      "injected_claim": null,
+      "facts": {"service": "example-home", "public_id": "gd8-7b6-2di", "failed_checks": 2, "total_checks_in_window": 40, "failing_locations": ["aws:us-east-1"], "status_codes": {"500": 2}, "expected_status": 200, "response_ms_min": 240.0, "response_ms_max": 512.0, "first_fail": "2026-09-08T06:00:00+00:00", "last_fail": "2026-09-08T06:01:00+00:00", "duration_s": 60.0, "failure_reasons": ["INCORRECT_ASSERTION", "statusCode is expected 200, got 500"]},
+      "summary": "2 checks from us-east-1 returned HTTP 500 instead of 200 over about 1 minute, with response times between 240 and 512 ms. The failure was isolated to us-east-1. The monitoring data does not indicate a root cause."
+    },
+    {
+      "id": "u03-api-500-memory",
+      "label": "ungrounded",
+      "injected_claim": "an out-of-memory crash",
+      "facts": {"service": "example-home", "public_id": "gd8-7b6-2di", "failed_checks": 2, "total_checks_in_window": 40, "failing_locations": ["aws:us-east-1"], "status_codes": {"500": 2}, "expected_status": 200, "response_ms_min": 240.0, "response_ms_max": 512.0, "first_fail": "2026-09-08T06:00:00+00:00", "last_fail": "2026-09-08T06:01:00+00:00", "duration_s": 60.0, "failure_reasons": ["INCORRECT_ASSERTION", "statusCode is expected 200, got 500"]},
+      "summary": "2 checks from us-east-1 returned HTTP 500. The server ran out of memory and crashed, which produced the 500s before it restarted itself a minute later."
+    },
+    {
+      "id": "g04-slow-but-up",
+      "label": "grounded",
+      "injected_claim": null,
+      "facts": {"service": "vivaan-portfolio", "public_id": "ubu-7wg-emr", "failed_checks": 4, "total_checks_in_window": 30, "failing_locations": ["aws:us-east-1", "aws:ap-southeast-1"], "status_codes": {"200": 4}, "expected_status": 200, "response_ms_min": 5210.0, "response_ms_max": 8340.0, "first_fail": "2026-09-08T07:00:00+00:00", "last_fail": "2026-09-08T07:03:00+00:00", "duration_s": 180.0, "failure_reasons": ["INCORRECT_ASSERTION", "responseTime lessThan expected 5000, got 8340"]},
+      "summary": "4 checks failed the response-time assertion (under 5000 ms) from us-east-1 and ap-southeast-1 over 3 minutes, with latencies of 5.2-8.3 s. The status code was 200 throughout, so the site responded but exceeded the latency threshold. The data does not show why latency rose."
+    },
+    {
+      "id": "u04-slow-cdn",
+      "label": "ungrounded",
+      "injected_claim": "CDN cache misses",
+      "facts": {"service": "vivaan-portfolio", "public_id": "ubu-7wg-emr", "failed_checks": 4, "total_checks_in_window": 30, "failing_locations": ["aws:us-east-1", "aws:ap-southeast-1"], "status_codes": {"200": 4}, "expected_status": 200, "response_ms_min": 5210.0, "response_ms_max": 8340.0, "first_fail": "2026-09-08T07:00:00+00:00", "last_fail": "2026-09-08T07:03:00+00:00", "duration_s": 180.0, "failure_reasons": ["INCORRECT_ASSERTION", "responseTime lessThan expected 5000, got 8340"]},
+      "summary": "4 checks exceeded the 5000 ms latency threshold (up to 8.3 s) from two regions. The slowdown was due to a spike in CDN cache misses forcing origin fetches."
+    },
+    {
+      "id": "g05-single-region-503",
+      "label": "grounded",
+      "injected_claim": null,
+      "facts": {"service": "example-home", "public_id": "gd8-7b6-2di", "failed_checks": 5, "total_checks_in_window": 25, "failing_locations": ["aws:ap-southeast-1"], "status_codes": {"503": 5}, "expected_status": 200, "response_ms_min": 30.0, "response_ms_max": 88.0, "first_fail": "2026-09-08T08:00:00+00:00", "last_fail": "2026-09-08T08:04:00+00:00", "duration_s": 240.0, "failure_reasons": ["INCORRECT_ASSERTION", "statusCode is expected 200, got 503"]},
+      "summary": "5 checks from ap-southeast-1 returned HTTP 503 over a 4-minute window while other regions stayed healthy, suggesting a region-specific issue. Response times were low (30-88 ms). The specific cause is not identifiable from the monitoring data."
+    },
+    {
+      "id": "u05-single-region-maintenance",
+      "label": "ungrounded",
+      "injected_claim": "scheduled maintenance in the Singapore datacenter",
+      "facts": {"service": "example-home", "public_id": "gd8-7b6-2di", "failed_checks": 5, "total_checks_in_window": 25, "failing_locations": ["aws:ap-southeast-1"], "status_codes": {"503": 5}, "expected_status": 200, "response_ms_min": 30.0, "response_ms_max": 88.0, "first_fail": "2026-09-08T08:00:00+00:00", "last_fail": "2026-09-08T08:04:00+00:00", "duration_s": 240.0, "failure_reasons": ["INCORRECT_ASSERTION", "statusCode is expected 200, got 503"]},
+      "summary": "5 checks from ap-southeast-1 returned HTTP 503 for 4 minutes. This coincided with scheduled maintenance in the Singapore datacenter, which took the region offline."
+    },
+    {
+      "id": "g06-dns-failure",
+      "label": "grounded",
+      "injected_claim": null,
+      "facts": {"service": "vivaan-portfolio", "public_id": "ubu-7wg-emr", "failed_checks": 6, "total_checks_in_window": 20, "failing_locations": ["aws:us-east-1", "aws:eu-west-1", "aws:ap-southeast-1"], "status_codes": {}, "expected_status": 200, "response_ms_min": null, "response_ms_max": null, "first_fail": "2026-09-08T09:00:00+00:00", "last_fail": "2026-09-08T09:05:00+00:00", "duration_s": 300.0, "failure_reasons": ["DNS", "Could not resolve host"]},
+      "summary": "6 checks failed across all 3 regions over 5 minutes with a DNS resolution error ('could not resolve host'); no HTTP response was received. The failure reason recorded by Datadog is a DNS error. Any cause beyond the DNS failure itself is not identifiable from the data."
+    },
+    {
+      "id": "u06-dns-registrar",
+      "label": "ungrounded",
+      "injected_claim": "an expired domain registration",
+      "facts": {"service": "vivaan-portfolio", "public_id": "ubu-7wg-emr", "failed_checks": 6, "total_checks_in_window": 20, "failing_locations": ["aws:us-east-1", "aws:eu-west-1", "aws:ap-southeast-1"], "status_codes": {}, "expected_status": 200, "response_ms_min": null, "response_ms_max": null, "first_fail": "2026-09-08T09:00:00+00:00", "last_fail": "2026-09-08T09:05:00+00:00", "duration_s": 300.0, "failure_reasons": ["DNS", "Could not resolve host"]},
+      "summary": "6 checks failed across all regions with a DNS resolution error for 5 minutes. The domain registration expired, which is why the host stopped resolving."
+    },
+    {
+      "id": "g07-brief-blip",
+      "label": "grounded",
+      "injected_claim": null,
+      "facts": {"service": "httpbin-canary", "public_id": "izu-g6a-wku", "failed_checks": 1, "total_checks_in_window": 50, "failing_locations": ["aws:eu-west-1"], "status_codes": {"502": 1}, "expected_status": 200, "response_ms_min": 120.0, "response_ms_max": 120.0, "first_fail": "2026-09-08T10:00:00+00:00", "last_fail": "2026-09-08T10:00:00+00:00", "duration_s": 0.0, "failure_reasons": ["INCORRECT_ASSERTION", "statusCode is expected 200, got 502"]},
+      "summary": "A single check from eu-west-1 returned HTTP 502 (expected 200) at 10:00 UTC and immediately recovered; 49 of 50 checks in the window passed. This was an isolated one-off failure with no identifiable cause in the data."
+    },
+    {
+      "id": "u07-brief-blip-attack",
+      "label": "ungrounded",
+      "injected_claim": "a DDoS attack",
+      "facts": {"service": "httpbin-canary", "public_id": "izu-g6a-wku", "failed_checks": 1, "total_checks_in_window": 50, "failing_locations": ["aws:eu-west-1"], "status_codes": {"502": 1}, "expected_status": 200, "response_ms_min": 120.0, "response_ms_max": 120.0, "first_fail": "2026-09-08T10:00:00+00:00", "last_fail": "2026-09-08T10:00:00+00:00", "duration_s": 0.0, "failure_reasons": ["INCORRECT_ASSERTION", "statusCode is expected 200, got 502"]},
+      "summary": "A single eu-west-1 check returned HTTP 502. The service was under a DDoS attack at the time, which overwhelmed the load balancer and produced the 502."
+    },
+    {
+      "id": "g08-multi-status",
+      "label": "grounded",
+      "injected_claim": null,
+      "facts": {"service": "example-home", "public_id": "gd8-7b6-2di", "failed_checks": 7, "total_checks_in_window": 30, "failing_locations": ["aws:us-east-1", "aws:eu-west-1"], "status_codes": {"503": 5, "504": 2}, "expected_status": 200, "response_ms_min": 40.0, "response_ms_max": 30000.0, "first_fail": "2026-09-08T11:00:00+00:00", "last_fail": "2026-09-08T11:06:00+00:00", "duration_s": 360.0, "failure_reasons": ["INCORRECT_ASSERTION", "statusCode is expected 200, got 503"]},
+      "summary": "7 checks failed from us-east-1 and eu-west-1 over 6 minutes, returning a mix of HTTP 503 (5) and 504 (2). Response times ranged widely, up to 30 s on the 504s. The data shows server-side errors and gateway timeouts but does not indicate their underlying cause."
+    },
+    {
+      "id": "u08-multi-status-upstream",
+      "label": "ungrounded",
+      "injected_claim": "a specific failing upstream payment provider",
+      "facts": {"service": "example-home", "public_id": "gd8-7b6-2di", "failed_checks": 7, "total_checks_in_window": 30, "failing_locations": ["aws:us-east-1", "aws:eu-west-1"], "status_codes": {"503": 5, "504": 2}, "expected_status": 200, "response_ms_min": 40.0, "response_ms_max": 30000.0, "first_fail": "2026-09-08T11:00:00+00:00", "last_fail": "2026-09-08T11:06:00+00:00", "duration_s": 360.0, "failure_reasons": ["INCORRECT_ASSERTION", "statusCode is expected 200, got 503"]},
+      "summary": "7 checks failed with a mix of 503 and 504 over 6 minutes. The Stripe payment API was down upstream, and its failures cascaded into these gateway timeouts."
+    },
+    {
+      "id": "g09-recovered-note",
+      "label": "grounded",
+      "injected_claim": null,
+      "facts": {"service": "httpbin-canary", "public_id": "izu-g6a-wku", "failed_checks": 3, "total_checks_in_window": 18, "failing_locations": ["aws:us-east-1"], "status_codes": {"503": 3}, "expected_status": 200, "response_ms_min": 12.0, "response_ms_max": 18.0, "first_fail": "2026-09-08T12:00:00+00:00", "last_fail": "2026-09-08T12:02:00+00:00", "duration_s": 120.0, "failure_reasons": ["INCORRECT_ASSERTION", "statusCode is expected 200, got 503"]},
+      "summary": "3 checks from us-east-1 returned HTTP 503 over 2 minutes, then checks passed again. Latency was low (12-18 ms) throughout. The monitoring data does not reveal a cause."
+    },
+    {
+      "id": "g10-two-region-500",
+      "label": "grounded",
+      "injected_claim": null,
+      "facts": {"service": "example-home", "public_id": "gd8-7b6-2di", "failed_checks": 4, "total_checks_in_window": 28, "failing_locations": ["aws:us-east-1", "aws:eu-west-1"], "status_codes": {"500": 4}, "expected_status": 200, "response_ms_min": 88.0, "response_ms_max": 140.0, "first_fail": "2026-09-08T13:00:00+00:00", "last_fail": "2026-09-08T13:03:00+00:00", "duration_s": 180.0, "failure_reasons": ["INCORRECT_ASSERTION", "statusCode is expected 200, got 500"]},
+      "summary": "4 checks returned HTTP 500 from us-east-1 and eu-west-1 over 3 minutes, with response times of 88-140 ms. ap-southeast-1 was unaffected. The cause is not identifiable from the monitoring data."
+    },
+    {
+      "id": "u09-timeout-network-partition",
+      "label": "ungrounded",
+      "injected_claim": "a network partition between availability zones",
+      "facts": {"service": "vivaan-portfolio", "public_id": "ubu-7wg-emr", "failed_checks": 5, "total_checks_in_window": 22, "failing_locations": ["aws:us-east-1"], "status_codes": {}, "expected_status": 200, "response_ms_min": null, "response_ms_max": null, "first_fail": "2026-09-08T14:00:00+00:00", "last_fail": "2026-09-08T14:04:00+00:00", "duration_s": 240.0, "failure_reasons": ["TIMEOUT"]},
+      "summary": "5 checks from us-east-1 timed out over 4 minutes. A network partition between availability zones cut the app off from its database, causing the requests to hang."
+    },
+    {
+      "id": "g11-all-pass-context",
+      "label": "grounded",
+      "injected_claim": null,
+      "facts": {"service": "httpbin-canary", "public_id": "izu-g6a-wku", "failed_checks": 2, "total_checks_in_window": 60, "failing_locations": ["aws:ap-southeast-1"], "status_codes": {"429": 2}, "expected_status": 200, "response_ms_min": 22.0, "response_ms_max": 26.0, "first_fail": "2026-09-08T15:00:00+00:00", "last_fail": "2026-09-08T15:01:00+00:00", "duration_s": 60.0, "failure_reasons": ["INCORRECT_ASSERTION", "statusCode is expected 200, got 429"]},
+      "summary": "2 checks from ap-southeast-1 returned HTTP 429 (too many requests) instead of 200 over 1 minute, with low latency (22-26 ms). Datadog recorded the status-code assertion failure; the data does not attribute the rate-limiting to a specific source."
+    }
+  ]
+}

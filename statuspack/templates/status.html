@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StatusPack</title>
+  <style>
+    :root { --bg:#0f1115; --card:#171a21; --line:#262b36; --fg:#e6e9ef; --muted:#9aa4b2;
+            --up:#2ecc71; --down:#e74c3c; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--fg);
+           font:15px/1.5 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; }
+    .wrap { max-width:820px; margin:0 auto; padding:32px 20px 64px; }
+    h1 { font-size:22px; margin:0 0 4px; }
+    .sub { color:var(--muted); font-size:13px; margin-bottom:24px; }
+    .banner { display:flex; align-items:center; gap:10px; padding:14px 16px; border-radius:10px;
+              font-weight:600; margin-bottom:24px; border:1px solid var(--line); }
+    .banner.up { background:rgba(46,204,113,.08); color:var(--up); }
+    .banner.down { background:rgba(231,76,60,.08); color:var(--down); }
+    .dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+    .dot.up { background:var(--up); } .dot.down { background:var(--down); }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:10px;
+            padding:16px; margin-bottom:12px; }
+    .row { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+    .name { font-weight:600; }
+    .url { color:var(--muted); font-size:12px; word-break:break-all; }
+    .meta { color:var(--muted); font-size:12px; margin-top:6px; }
+    .pill { font-size:12px; font-weight:600; padding:3px 9px; border-radius:20px; white-space:nowrap; }
+    .pill.up { background:rgba(46,204,113,.12); color:var(--up); }
+    .pill.down { background:rgba(231,76,60,.12); color:var(--down); }
+    .bar { height:6px; border-radius:4px; background:var(--line); margin-top:10px; overflow:hidden; }
+    .bar > span { display:block; height:100%; background:var(--up); }
+    h2 { font-size:15px; margin:32px 0 12px; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th,td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); }
+    th { color:var(--muted); font-weight:600; }
+    .tag-down { color:var(--down); } .tag-up { color:var(--up); }
+    .empty { color:var(--muted); font-size:13px; }
+    code { color:var(--muted); }
+    .summary-row td { color:var(--muted); font-size:12.5px; border-bottom:1px solid var(--line);
+                      padding-top:2px; line-height:1.5; }
+    .ai-tag { display:inline-block; font-size:10px; font-weight:700; letter-spacing:.04em;
+              text-transform:uppercase; color:#8ab4ff; background:rgba(138,180,255,.12);
+              padding:2px 6px; border-radius:5px; margin-right:6px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>StatusPack</h1>
+    <div class="sub">Monitored by Datadog Synthetic Monitoring · generated {{ generated_at }} UTC</div>
+
+    <div class="banner {{ 'up' if all_operational else 'down' }}">
+      <span class="dot {{ 'up' if all_operational else 'down' }}"></span>{{ overall_label }}
+    </div>
+
+    {% for s in services %}
+    <div class="card">
+      <div class="row">
+        <div>
+          <div class="name">{{ s.name }}</div>
+          <div class="url">{{ s.url }}</div>
+        </div>
+        <span class="pill {{ 'up' if s.operational else 'down' }}">{{ s.status_label }}</span>
+      </div>
+      <div class="bar"><span style="width:{{ s.uptime_pct }}%"></span></div>
+      <div class="meta">
+        Uptime {{ s.uptime_pct }}% ({{ s.passed_checks }}/{{ s.total_checks }} checks)
+        · regions: {{ s.regions | join(', ') }}
+        {% if s.latest_response_ms %} · last {{ '%.0f'|format(s.latest_response_ms) }} ms{% endif %}
+        {% if s.public_id %} · <code>{{ s.public_id }}</code>{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+
+    <h2>Past incidents</h2>
+    {% if incidents %}
+    <table>
+      <thead>
+        <tr><th>Service</th><th>Started (UTC)</th><th>Resolved (UTC)</th><th>Duration</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {% for inc in incidents %}
+        <tr>
+          <td>{{ inc.service }}</td>
+          <td>{{ inc.started_at }}</td>
+          <td>{{ inc.resolved_at or '—' }}</td>
+          <td>
+            {% set d = incident_duration_s(inc) %}
+            {{ ('%.0f s'|format(d)) if d is not none else '—' }}
+          </td>
+          <td class="{{ 'tag-up' if inc.status == 'resolved' else 'tag-down' }}">{{ inc.status }}</td>
+        </tr>
+        {% if inc.summary %}
+        <tr class="summary-row">
+          <td></td>
+          <td colspan="4"><span class="ai-tag">AI summary</span> {{ inc.summary }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty">No incidents recorded.</div>
+    {% endif %}
+  </div>
+</body>
+</html>

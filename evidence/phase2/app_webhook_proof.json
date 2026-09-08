@@ -1,0 +1,41 @@
+{
+  "app_response_recovered": {
+    "action": "resolved",
+    "discord_delivered": false,
+    "discord_reason": "DISCORD_WEBHOOK_URL not configured (dummy/placeholder); skipped.",
+    "incident_id": 1,
+    "received_at": "2026-09-08T03:53:41.646235+00:00",
+    "service": "httpbin-canary",
+    "transition": "Recovered"
+  },
+  "app_response_triggered": {
+    "action": "opened",
+    "discord_delivered": false,
+    "discord_reason": "DISCORD_WEBHOOK_URL not configured (dummy/placeholder); skipped.",
+    "incident_id": 1,
+    "received_at": "2026-09-08T03:53:41.635771+00:00",
+    "service": "httpbin-canary",
+    "transition": "Triggered"
+  },
+  "note": "Payloads are Datadog's monitor-webhook shape, built from the real incident in incident.json and POSTed to the running app over HTTP by a LOCAL injector (Datadog cannot reach this sandbox). The app path \u2014 receive, parse, open/resolve incident, Discord forward \u2014 is the real one.",
+  "sent_recovered": {
+    "date": "1788839487000",
+    "monitor_id": "319919697",
+    "public_id": "izu-g6a-wku",
+    "tags": "statuspack:true,service:httpbin-canary,env:prod",
+    "title": "[Recovered] StatusPack - httpbin-canary",
+    "transition": "Recovered"
+  },
+  "sent_triggered": {
+    "date": "1788839428167",
+    "monitor_id": "319919697",
+    "public_id": "izu-g6a-wku",
+    "tags": "statuspack:true,service:httpbin-canary,env:prod",
+    "title": "[Triggered] StatusPack - httpbin-canary",
+    "transition": "Triggered"
+  },
+  "server_health": {
+    "status": "ok",
+    "time": "2026-09-08T03:53:41.633550+00:00"
+  }
+}

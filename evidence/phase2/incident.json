@@ -1,0 +1,16 @@
+{
+  "alert_latency_s": 30.4,
+  "broken_url": "https://httpbin.org/status/503",
+  "detection_latency_s": 1.6,
+  "fail_to_alert_s": 28.8,
+  "failing_location": "aws:us-east-1",
+  "monitor_id": 319919697,
+  "outage_duration_s": 60.4,
+  "public_id": "izu-g6a-wku",
+  "service": "httpbin-canary",
+  "t_alert": "2026-09-08T03:50:57+00:00",
+  "t_break": "2026-09-08T03:50:26.558937+00:00",
+  "t_first_fail": "2026-09-08T03:50:28.167000+00:00",
+  "t_recovered": "2026-09-08T03:51:27+00:00",
+  "t_restore": "2026-09-08T03:51:02.995484+00:00"
+}

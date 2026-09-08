@@ -1,0 +1,780 @@
+[
+  {
+    "check_time": 1788839526715,
+    "check_version": 4,
+    "probe_dc": "aws:ap-southeast-1",
+    "result": {
+      "initialResultID": "8792169880030595783",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 3,
+      "timings": {
+        "dns": 3.5,
+        "download": 0.9,
+        "firstByte": 214,
+        "ssl": 425.5,
+        "tcp": 211.9,
+        "total": 855.8
+      },
+      "tunnel": false
+    },
+    "result_id": "8792169880030595783",
+    "status": 0
+  },
+  {
+    "check_time": 1788839524941,
+    "check_version": 4,
+    "probe_dc": "aws:ap-southeast-1",
+    "result": {
+      "initialResultID": "4127379736262908101",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 11.7,
+        "download": 0.5,
+        "firstByte": 497.6,
+        "ssl": 460.4,
+        "tcp": 229.1,
+        "total": 1199.3
+      },
+      "tunnel": false
+    },
+    "result_id": "4127379736262908101",
+    "status": 0
+  },
+  {
+    "check_time": 1788839524610,
+    "check_version": 4,
+    "probe_dc": "aws:us-east-1",
+    "result": {
+      "initialResultID": "7093727745288377536",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 3.8,
+        "download": 0.6,
+        "firstByte": 360.4,
+        "ssl": 5.1,
+        "tcp": 2.9,
+        "total": 372.8
+      },
+      "tunnel": false
+    },
+    "result_id": "7093727745288377536",
+    "status": 0
+  },
+  {
+    "check_time": 1788839524568,
+    "check_version": 4,
+    "probe_dc": "aws:eu-west-1",
+    "result": {
+      "initialResultID": "1301813851271838422",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 13.3,
+        "download": 0.5,
+        "firstByte": 71,
+        "ssl": 140.4,
+        "tcp": 69.2,
+        "total": 294.4
+      },
+      "tunnel": false
+    },
+    "result_id": "1301813851271838422",
+    "status": 0
+  },
+  {
+    "check_time": 1788839521104,
+    "check_version": 4,
+    "probe_dc": "aws:us-east-1",
+    "result": {
+      "initialResultID": "3323515652685158392",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 3,
+      "timings": {
+        "dns": 5.1,
+        "download": 0.6,
+        "firstByte": 2.8,
+        "ssl": 4.7,
+        "tcp": 3.1,
+        "total": 16.3
+      },
+      "tunnel": false
+    },
+    "result_id": "3323515652685158392",
+    "status": 0
+  },
+  {
+    "check_time": 1788839515811,
+    "check_version": 4,
+    "probe_dc": "aws:eu-west-1",
+    "result": {
+      "initialResultID": "5239400325281610282",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 3,
+      "timings": {
+        "dns": 2.7,
+        "download": 0.7,
+        "firstByte": 71.1,
+        "ssl": 140.9,
+        "tcp": 69.4,
+        "total": 284.8
+      },
+      "tunnel": false
+    },
+    "result_id": "5239400325281610282",
+    "status": 0
+  },
+  {
+    "check_time": 1788839510725,
+    "check_version": 4,
+    "probe_dc": "aws:ap-southeast-1",
+    "result": {
+      "initialResultID": "2465224772948355755",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 3,
+      "timings": {
+        "dns": 4,
+        "download": 0.7,
+        "firstByte": 402.1,
+        "ssl": 451.4,
+        "tcp": 225,
+        "total": 1083.2
+      },
+      "tunnel": false
+    },
+    "result_id": "2465224772948355755",
+    "status": 0
+  },
+  {
+    "check_time": 1788839505135,
+    "check_version": 3,
+    "probe_dc": "aws:us-east-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "6888016694063707751",
+      "isFastRetry": false,
+      "numberOfHops": 4,
+      "passed": false,
+      "runType": 3,
+      "timings": {
+        "dns": 5,
+        "download": 0.9,
+        "firstByte": 2.2,
+        "ssl": 4.8,
+        "tcp": 3.4,
+        "total": 16.3
+      },
+      "tunnel": false
+    },
+    "result_id": "6888016694063707751",
+    "status": 1
+  },
+  {
+    "check_time": 1788839499792,
+    "check_version": 3,
+    "probe_dc": "aws:eu-west-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "8888875777705103890",
+      "isFastRetry": false,
+      "numberOfHops": 11,
+      "passed": false,
+      "runType": 3,
+      "timings": {
+        "dns": 3.5,
+        "download": 0.7,
+        "firstByte": 70.5,
+        "ssl": 140.6,
+        "tcp": 69.7,
+        "total": 285
+      },
+      "tunnel": false
+    },
+    "result_id": "8888875777705103890",
+    "status": 1
+  },
+  {
+    "check_time": 1788839494711,
+    "check_version": 3,
+    "probe_dc": "aws:ap-southeast-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "3706630658808737432",
+      "isFastRetry": false,
+      "numberOfHops": 11,
+      "passed": false,
+      "runType": 3,
+      "timings": {
+        "dns": 4.6,
+        "download": 2.3,
+        "firstByte": 228.6,
+        "ssl": 445.8,
+        "tcp": 222,
+        "total": 903.3
+      },
+      "tunnel": false
+    },
+    "result_id": "3706630658808737432",
+    "status": 1
+  },
+  {
+    "check_time": 1788839489106,
+    "check_version": 3,
+    "probe_dc": "aws:us-east-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "967983653086282511",
+      "isFastRetry": false,
+      "numberOfHops": 4,
+      "passed": false,
+      "runType": 3,
+      "timings": {
+        "dns": 6.7,
+        "download": 0.9,
+        "firstByte": 27.6,
+        "ssl": 5.7,
+        "tcp": 4,
+        "total": 44.9
+      },
+      "tunnel": false
+    },
+    "result_id": "967983653086282511",
+    "status": 1
+  },
+  {
+    "check_time": 1788839483710,
+    "check_version": 3,
+    "probe_dc": "aws:eu-west-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "2590082256307964697",
+      "isFastRetry": false,
+      "numberOfHops": 11,
+      "passed": false,
+      "runType": 3,
+      "timings": {
+        "dns": 3.7,
+        "download": 1.3,
+        "firstByte": 220.2,
+        "ssl": 140.2,
+        "tcp": 69.3,
+        "total": 434.7
+      },
+      "tunnel": false
+    },
+    "result_id": "2590082256307964697",
+    "status": 1
+  },
+  {
+    "check_time": 1788839473713,
+    "check_version": 3,
+    "probe_dc": "aws:ap-southeast-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "3535813643406920050",
+      "isFastRetry": false,
+      "numberOfHops": 15,
+      "passed": false,
+      "runType": 3,
+      "timings": {
+        "dns": 4.8,
+        "download": 1.1,
+        "firstByte": 211.8,
+        "ssl": 421.3,
+        "tcp": 209.5,
+        "total": 848.5
+      },
+      "tunnel": false
+    },
+    "result_id": "3535813643406920050",
+    "status": 1
+  },
+  {
+    "check_time": 1788839467838,
+    "check_version": 3,
+    "probe_dc": "aws:us-east-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "7768307837744409639",
+      "isFastRetry": false,
+      "numberOfHops": 4,
+      "passed": false,
+      "runType": 3,
+      "timings": {
+        "dns": 6.9,
+        "download": 1.2,
+        "firstByte": 2.8,
+        "ssl": 5.2,
+        "tcp": 3.6,
+        "total": 19.7
+      },
+      "tunnel": false
+    },
+    "result_id": "7768307837744409639",
+    "status": 1
+  },
+  {
+    "check_time": 1788839465018,
+    "check_version": 4,
+    "probe_dc": "aws:ap-southeast-1",
+    "result": {
+      "initialResultID": "1791750674619959568",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 10.8,
+        "download": 0.4,
+        "firstByte": 266.2,
+        "ssl": 425.4,
+        "tcp": 209,
+        "total": 911.8
+      },
+      "tunnel": false
+    },
+    "result_id": "1791750674619959568",
+    "status": 0
+  },
+  {
+    "check_time": 1788839464802,
+    "check_version": 4,
+    "probe_dc": "aws:eu-west-1",
+    "result": {
+      "initialResultID": "7377459238490451835",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 12.9,
+        "download": 0.5,
+        "firstByte": 71.7,
+        "ssl": 141.6,
+        "tcp": 70.2,
+        "total": 296.9
+      },
+      "tunnel": false
+    },
+    "result_id": "7377459238490451835",
+    "status": 0
+  },
+  {
+    "check_time": 1788839464694,
+    "check_version": 4,
+    "probe_dc": "aws:us-east-1",
+    "result": {
+      "initialResultID": "8833806599018314229",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 4.5,
+        "download": 0.4,
+        "firstByte": 53.9,
+        "ssl": 5.8,
+        "tcp": 3.9,
+        "total": 68.5
+      },
+      "tunnel": false
+    },
+    "result_id": "8833806599018314229",
+    "status": 0
+  },
+  {
+    "check_time": 1788839462772,
+    "check_version": 3,
+    "probe_dc": "aws:eu-west-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "2217958671595538421",
+      "isFastRetry": false,
+      "numberOfHops": 11,
+      "passed": false,
+      "runType": 3,
+      "timings": {
+        "dns": 3.8,
+        "download": 0.8,
+        "firstByte": 251.5,
+        "ssl": 139.3,
+        "tcp": 68.8,
+        "total": 464.2
+      },
+      "tunnel": false
+    },
+    "result_id": "2217958671595538421",
+    "status": 1
+  },
+  {
+    "check_time": 1788839452727,
+    "check_version": 3,
+    "probe_dc": "aws:ap-southeast-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "2262517198989632577",
+      "isFastRetry": false,
+      "numberOfHops": 15,
+      "passed": false,
+      "runType": 3,
+      "timings": {
+        "dns": 3.8,
+        "download": 2.3,
+        "firstByte": 255.9,
+        "ssl": 438.8,
+        "tcp": 218.7,
+        "total": 919.5
+      },
+      "tunnel": false
+    },
+    "result_id": "2262517198989632577",
+    "status": 1
+  },
+  {
+    "check_time": 1788839447126,
+    "check_version": 3,
+    "probe_dc": "aws:us-east-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "4432352841516842967",
+      "isFastRetry": false,
+      "numberOfHops": 4,
+      "passed": false,
+      "runType": 3,
+      "timings": {
+        "dns": 5.3,
+        "download": 0.9,
+        "firstByte": 3.1,
+        "ssl": 4.6,
+        "tcp": 3.3,
+        "total": 17.2
+      },
+      "tunnel": false
+    },
+    "result_id": "4432352841516842967",
+    "status": 1
+  },
+  {
+    "check_time": 1788839441756,
+    "check_version": 3,
+    "probe_dc": "aws:eu-west-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "928558109354710705",
+      "isFastRetry": false,
+      "numberOfHops": 11,
+      "passed": false,
+      "runType": 3,
+      "timings": {
+        "dns": 6.2,
+        "download": 1.2,
+        "firstByte": 70.8,
+        "ssl": 140.1,
+        "tcp": 69.2,
+        "total": 287.5
+      },
+      "tunnel": false
+    },
+    "result_id": "928558109354710705",
+    "status": 1
+  },
+  {
+    "check_time": 1788839431320,
+    "check_version": 3,
+    "probe_dc": "aws:ap-southeast-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "5654265273810100476",
+      "isFastRetry": false,
+      "numberOfHops": 11,
+      "passed": false,
+      "runType": 3,
+      "timings": {
+        "dns": 4.4,
+        "download": 2.4,
+        "firstByte": 225.2,
+        "ssl": 444.1,
+        "tcp": 220.9,
+        "total": 897
+      },
+      "tunnel": false
+    },
+    "result_id": "5654265273810100476",
+    "status": 1
+  },
+  {
+    "check_time": 1788839428379,
+    "check_version": 3,
+    "probe_dc": "aws:ap-southeast-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "6503894718779714179",
+      "isFastRetry": false,
+      "numberOfHops": 11,
+      "passed": false,
+      "runType": 0,
+      "timings": {
+        "dns": 7.5,
+        "download": 0.5,
+        "firstByte": 232.9,
+        "ssl": 463.2,
+        "tcp": 226.7,
+        "total": 930.8
+      },
+      "tunnel": false
+    },
+    "result_id": "6503894718779714179",
+    "status": 1
+  },
+  {
+    "check_time": 1788839428204,
+    "check_version": 3,
+    "probe_dc": "aws:eu-west-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "3165014097959097518",
+      "isFastRetry": false,
+      "numberOfHops": 11,
+      "passed": false,
+      "runType": 0,
+      "timings": {
+        "dns": 13.6,
+        "download": 0.5,
+        "firstByte": 70.7,
+        "ssl": 140.8,
+        "tcp": 88.3,
+        "total": 313.9
+      },
+      "tunnel": false
+    },
+    "result_id": "3165014097959097518",
+    "status": 1
+  },
+  {
+    "check_time": 1788839428167,
+    "check_version": 3,
+    "probe_dc": "aws:us-east-1",
+    "result": {
+      "errorMessage": "[{\"actual\":503,\"operator\":\"is\",\"target\":200,\"type\":\"statusCode\"}]",
+      "initialResultID": "5745150340804976792",
+      "isFastRetry": false,
+      "numberOfHops": 4,
+      "passed": false,
+      "runType": 0,
+      "timings": {
+        "dns": 5.2,
+        "download": 0.4,
+        "firstByte": 4.3,
+        "ssl": 4.9,
+        "tcp": 5,
+        "total": 19.8
+      },
+      "tunnel": false
+    },
+    "result_id": "5745150340804976792",
+    "status": 1
+  },
+  {
+    "check_time": 1788839182161,
+    "check_version": 2,
+    "probe_dc": "aws:eu-west-1",
+    "result": {
+      "initialResultID": "7469870252589869858",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 8.5,
+        "download": 0.4,
+        "firstByte": 136.2,
+        "ssl": 140.6,
+        "tcp": 69.2,
+        "total": 354.9
+      },
+      "tunnel": false
+    },
+    "result_id": "7469870252589869858",
+    "status": 0
+  },
+  {
+    "check_time": 1788839182030,
+    "check_version": 2,
+    "probe_dc": "aws:ap-southeast-1",
+    "result": {
+      "initialResultID": "3718268727316802780",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 5.4,
+        "download": 0.6,
+        "firstByte": 221.2,
+        "ssl": 471.2,
+        "tcp": 218.2,
+        "total": 916.6
+      },
+      "tunnel": false
+    },
+    "result_id": "3718268727316802780",
+    "status": 0
+  },
+  {
+    "check_time": 1788839181833,
+    "check_version": 2,
+    "probe_dc": "aws:us-east-1",
+    "result": {
+      "initialResultID": "6778576764896022154",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 4.6,
+        "download": 0.4,
+        "firstByte": 3.3,
+        "ssl": 6.9,
+        "tcp": 3.3,
+        "total": 18.5
+      },
+      "tunnel": false
+    },
+    "result_id": "6778576764896022154",
+    "status": 0
+  },
+  {
+    "check_time": 1788838882208,
+    "check_version": 2,
+    "probe_dc": "aws:ap-southeast-1",
+    "result": {
+      "initialResultID": "5909789189267204484",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 11.6,
+        "download": 0.5,
+        "firstByte": 224,
+        "ssl": 447.3,
+        "tcp": 222.8,
+        "total": 906.2
+      },
+      "tunnel": false
+    },
+    "result_id": "5909789189267204484",
+    "status": 0
+  },
+  {
+    "check_time": 1788838882109,
+    "check_version": 2,
+    "probe_dc": "aws:eu-west-1",
+    "result": {
+      "initialResultID": "8614103219013568384",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 13.4,
+        "download": 0.3,
+        "firstByte": 70.7,
+        "ssl": 139.2,
+        "tcp": 71.2,
+        "total": 294.8
+      },
+      "tunnel": false
+    },
+    "result_id": "8614103219013568384",
+    "status": 0
+  },
+  {
+    "check_time": 1788838881914,
+    "check_version": 2,
+    "probe_dc": "aws:us-east-1",
+    "result": {
+      "initialResultID": "8564060788916046371",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 11.9,
+        "download": 0.4,
+        "firstByte": 10.6,
+        "ssl": 4.6,
+        "tcp": 3.3,
+        "total": 30.8
+      },
+      "tunnel": false
+    },
+    "result_id": "8564060788916046371",
+    "status": 0
+  },
+  {
+    "check_time": 1788838870393,
+    "check_version": 1,
+    "probe_dc": "aws:ap-southeast-1",
+    "result": {
+      "initialResultID": "7369818581527275499",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 2.8,
+        "download": 0.6,
+        "firstByte": 227.3,
+        "ssl": 447.2,
+        "tcp": 222.8,
+        "total": 900.7
+      },
+      "tunnel": false
+    },
+    "result_id": "7369818581527275499",
+    "status": 0
+  },
+  {
+    "check_time": 1788838869791,
+    "check_version": 1,
+    "probe_dc": "aws:us-east-1",
+    "result": {
+      "initialResultID": "4363261576636465840",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 3.5,
+        "download": 0.5,
+        "firstByte": 2.6,
+        "ssl": 4.4,
+        "tcp": 2.2,
+        "total": 13.2
+      },
+      "tunnel": false
+    },
+    "result_id": "4363261576636465840",
+    "status": 0
+  },
+  {
+    "check_time": 1788838869700,
+    "check_version": 1,
+    "probe_dc": "aws:eu-west-1",
+    "result": {
+      "initialResultID": "9077902914809733139",
+      "isFastRetry": false,
+      "passed": true,
+      "runType": 0,
+      "timings": {
+        "dns": 14.5,
+        "download": 0.5,
+        "firstByte": 87.9,
+        "ssl": 148.2,
+        "tcp": 71.5,
+        "total": 322.6
+      },
+      "tunnel": false
+    },
+    "result_id": "9077902914809733139",
+    "status": 0
+  }
+]
