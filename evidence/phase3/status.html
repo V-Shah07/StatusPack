@@ -37,12 +37,17 @@
     .tag-down { color:var(--down); } .tag-up { color:var(--up); }
     .empty { color:var(--muted); font-size:13px; }
     code { color:var(--muted); }
+    .summary-row td { color:var(--muted); font-size:12.5px; border-bottom:1px solid var(--line);
+                      padding-top:2px; line-height:1.5; }
+    .ai-tag { display:inline-block; font-size:10px; font-weight:700; letter-spacing:.04em;
+              text-transform:uppercase; color:#8ab4ff; background:rgba(138,180,255,.12);
+              padding:2px 6px; border-radius:5px; margin-right:6px; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>StatusPack</h1>
-    <div class="sub">Monitored by Datadog Synthetic Monitoring · generated 2026-09-08T03:56:31+00:00 UTC</div>
+    <div class="sub">Monitored by Datadog Synthetic Monitoring · generated 2026-09-08T05:10:03+00:00 UTC</div>
 
     <div class="banner up">
       <span class="dot up"></span>All systems operational
@@ -59,9 +64,9 @@
       </div>
       <div class="bar"><span style="width:100.0%"></span></div>
       <div class="meta">
-        Uptime 100.0% (15/15 checks)
+        Uptime 100.0% (57/57 checks)
         · regions: aws:ap-southeast-1, aws:eu-west-1, aws:us-east-1
-         · last 77 ms
+         · last 75 ms
          · <code>ubu-7wg-emr</code>
       </div>
     </div>
@@ -76,9 +81,9 @@
       </div>
       <div class="bar"><span style="width:100.0%"></span></div>
       <div class="meta">
-        Uptime 100.0% (15/15 checks)
+        Uptime 100.0% (57/57 checks)
         · regions: aws:ap-southeast-1, aws:eu-west-1, aws:us-east-1
-         · last 30 ms
+         · last 39 ms
          · <code>gd8-7b6-2di</code>
       </div>
     </div>
@@ -91,11 +96,11 @@
         </div>
         <span class="pill up">Operational</span>
       </div>
-      <div class="bar"><span style="width:72.22%"></span></div>
+      <div class="bar"><span style="width:96.0%"></span></div>
       <div class="meta">
-        Uptime 72.22% (39/54 checks)
+        Uptime 96.0% (144/150 checks)
         · regions: aws:ap-southeast-1, aws:eu-west-1, aws:us-east-1
-         · last 17 ms
+         · last 1061 ms
          · <code>izu-g6a-wku</code>
       </div>
     </div>
@@ -111,14 +116,20 @@
         
         <tr>
           <td>httpbin-canary</td>
-          <td>2026-09-08T03:50:28.167000+00:00</td>
-          <td>2026-09-08T03:51:27+00:00</td>
+          <td>2026-09-08T05:02:27.964000+00:00</td>
+          <td>2026-09-08T05:02:41.772000+00:00</td>
           <td>
             
-            59 s
+            14 s
           </td>
           <td class="tag-up">resolved</td>
         </tr>
+        
+        <tr class="summary-row">
+          <td></td>
+          <td colspan="4"><span class="ai-tag">AI summary</span> Between 05:02:27 and 05:02:41 UTC on 2026-09-08, the httpbin-canary service (public ID izu-g6a-wku) recorded 5 failed checks out of 150 in the monitoring window, lasting approximately 13.8 seconds. All 5 failures returned HTTP 503 instead of the expected 200, triggering an incorrect assertion, and originated from three locations: aws:ap-southeast-1, aws:eu-west-1, and aws:us-east-1. Response times during the window ranged from 63.4 ms to 902.0 ms; the cause is not identifiable from the available monitoring data.</td>
+        </tr>
+        
         
       </tbody>
     </table>

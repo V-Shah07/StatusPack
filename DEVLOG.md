@@ -4,6 +4,19 @@ This file tracks each phase's **PROVE IT** evidence. Per the README's honesty
 rule, no number or artifact here is fabricated — a phase is only marked DONE when
 its evidence is a real committed artifact.
 
+## Phase 7 — Polish: README, CI, Docker, final numbers
+
+**Status: ✅ DONE.**
+
+- README rewritten with a proven-results numbers table (each cell linked to its
+  `evidence/` artifact), a Mermaid architecture diagram, a run guide, and the
+  resume bullets filled with the real numbers. Original build spec kept below it.
+- CI (GitHub Actions): ruff lint + format + 40 unit tests, green on every phase.
+- Dockerfile + .dockerignore (single container; not build-verified here — no
+  docker daemon in the sandbox).
+- Status page now renders the Phase 4 **AI summary** inline under the incident
+  (`evidence/phase3/status.png` regenerated) — Phases 3 + 4 integrated end-to-end.
+
 ## Phase 5 — Grounding eval (LLM-as-judge)
 
 **Status: ✅ DONE — real judge run on 2026-09-08 (claude-opus-5).**

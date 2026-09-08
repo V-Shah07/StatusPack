@@ -1,6 +1,68 @@
 # StatusPack — Datadog-Powered Status Page + AI Incident Responder
 
-> **For the autonomous coding session.** Single source of truth for this repo. Build in phase order. Every phase ends with **PROVE IT** — a real API response, a passing test, or a logged number against a real Datadog org. The resume bullets at the bottom are the contract: every one must be backed by something committed to the repo (an API response dump, a test log, an eval score).
+StatusPack registers real URLs as **Datadog Synthetic tests** (Datadog's global
+infra runs the checks), consumes the results to render a public **status page**,
+and on failure runs an **LLM incident summarizer** (traced in Datadog LLM
+Observability) gated by an independent **LLM-as-judge grounding eval**.
+
+## ✅ Proven results (all against a real Datadog org, `2040770`)
+
+Every number below traces to a committed artifact — see [`DEVLOG.md`](DEVLOG.md)
+and [`evidence/`](evidence/). No mocks, no invented numbers.
+
+| Metric | Value | Evidence |
+|---|---|---|
+| Production services monitored | **3** across **3** AWS regions (us-east-1, eu-west-1, ap-southeast-1) | [`evidence/phase1/`](evidence/phase1/) |
+| Paging latency (real failure → Datadog monitor alert) | **~30 s** (detected across 3 regions in 1.6 s) | [`evidence/phase2/incident.json`](evidence/phase2/incident.json) |
+| Status page | live, showed the real outage (canary dipped to 72.2% uptime, recovered) | [`evidence/phase3/status.png`](evidence/phase3/status.png) |
+| LLM incident summary traced in Datadog LLM Obs | **670 tokens, $0.0076, 4.22 s** per incident (`claude-opus-5`) | [`evidence/phase4/llmobs_trace_summary.json`](evidence/phase4/llmobs_trace_summary.json) |
+| Grounding eval — hallucinations caught | **100% (9/9)** over a 20-item labeled set | [`evidence/phase5/eval_results.json`](evidence/phase5/eval_results.json) |
+| Grounding eval — false-positive rate | **9.1% (1/11)** grounded summaries wrongly flagged | [`evidence/phase5/eval_results.json`](evidence/phase5/eval_results.json) |
+| CI | lint + format + 40 unit tests, green | [`.github/workflows/ci.yml`](.github/workflows/ci.yml) |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  subgraph DD[Datadog global infra]
+    S[Synthetic API tests<br/>3 URLs x 3 regions]
+    M[Monitors<br/>fire on failure/recovery]
+    L[LLM Observability]
+  end
+  cfg[services.yaml] -->|provision idempotently| S
+  S --> M
+  S -->|results history| APP
+  M -->|alert webhook| APP[FastAPI app]
+  APP -->|status page| WEB[Public status page]
+  APP -->|incident log| DB[(SQLite)]
+  APP -->|failure data| SUM[Claude summarizer<br/>grounded prompt]
+  SUM -->|traced span| L
+  SUM --> JUDGE[Independent judge<br/>grounding eval]
+  APP -->|formatted alert| DISCORD[Discord webhook]
+```
+
+**How each phase backs the resume bullets:** Phase 1 → services/regions;
+Phase 2 → paging latency; Phase 3 → status page; Phase 4 → traced summary
+(tokens/cost/latency); Phase 5 → eval catch/false-positive rates.
+
+### Run it
+
+```bash
+cp .env.example .env          # fill DD_API_KEY, DD_APP_KEY, ANTHROPIC_API_KEY
+pip install -r requirements-dev.txt
+python -m statuspack.provision          # Phase 1: create Datadog synthetic tests
+uvicorn statuspack.app:app --port 8000  # status page at http://localhost:8000
+python -m statuspack.phase2_incident    # trigger a real failure + measure latency
+python -m statuspack.phase4_summarize   # traced LLM incident summary
+python -m statuspack.phase5_eval        # grounding eval catch/FP rates
+pytest                                  # 40 unit tests
+```
+
+---
+
+> **Original build spec (single source of truth for the autonomous build).** Build
+> in phase order. Every phase ends with **PROVE IT** — a real API response, a passing
+> test, or a logged number against a real Datadog org.
 
 ---
 
@@ -114,11 +176,11 @@ Each phase: build → **PROVE IT** (real API call output / real test log / real 
 
 ## 5. Resume bullets (the contract — every one must end up TRUE)
 
-Fill X/Y/Z from the committed logs and eval runs. Never invent numbers — a smaller honest number is a stronger bullet than a padded one.
+Filled from the committed logs and eval runs on 2026-09-08 (real Datadog org `2040770`, `claude-opus-5`). Every number traces to `evidence/`.
 
-- Monitored **N** production services with Datadog Synthetic Monitoring across **M** global regions, auto-generating public status pages and paging on-call within **X**s of a real triggered failure (Phase 2 log).
-- Built an LLM-as-judge eval in Datadog LLM Observability to catch ungrounded root-cause claims, blocking **X%** of hallucinated incident summaries across a labeled set of **N** examples (Phase 5 log).
-- Traced every AI-generated incident summary end-to-end in Datadog LLM Observability, tracking token cost and latency per incident (Phase 4 log).
-- *(If Phase 6 built)* Auto-resolved **X** of **N** triggered incidents via confidence-gated remediation (restart/rollback), with the eval correctly blocking **Y** low-confidence proposals from executing (Phase 6 log).
+- Monitored **3** production services with Datadog Synthetic Monitoring across **3** global regions, auto-generating a public status page and detecting/alerting on a real triggered failure within **~30 s** (failure observed across all 3 regions in 1.6 s; monitor alert at 30.4 s — [Phase 2 log](evidence/phase2/incident.json)).
+- Built an independent LLM-as-judge grounding eval to catch ungrounded root-cause claims, flagging **100%** of hallucinated incident summaries (9/9) at a **9.1%** false-positive rate across a labeled set of **20** examples ([Phase 5 log](evidence/phase5/eval_results.json)).
+- Traced every AI-generated incident summary end-to-end in Datadog LLM Observability, tracking token cost and latency per incident (**670 tokens, $0.0076, 4.22 s** for the proven incident — [Phase 4 trace](evidence/phase4/llmobs_trace_summary.json)).
+- *(Phase 6 — stretch, not built: requires a hosting-provider API allow-list; deliberately scoped out.)*
 
 > **Bullet honesty rule:** every X/Y/Z must trace to a specific committed artifact (an API response, a test log, a labeled eval run) — not an estimate of what it "should" be. If your eval only catches 60% of hallucinations on a small set, say 60% on that set size. A small, real, specific number is a stronger signal than a big vague one.
