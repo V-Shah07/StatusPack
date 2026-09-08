@@ -92,11 +92,12 @@ def test_service_without_locations_rejected(tmp_path):
         load_services(path)
 
 
-def test_missing_credentials_raises(monkeypatch):
+def test_missing_credentials_raises(monkeypatch, tmp_path):
     monkeypatch.delenv("DD_API_KEY", raising=False)
     monkeypatch.delenv("DD_APP_KEY", raising=False)
+    # Point at a non-existent .env so the developer's real .env can't satisfy it.
     with pytest.raises(RuntimeError, match="Missing Datadog credentials"):
-        load_datadog_settings(require=True)
+        load_datadog_settings(require=True, dotenv_path=tmp_path / "absent.env")
 
 
 def test_api_base_and_app_base():

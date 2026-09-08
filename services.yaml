@@ -42,8 +42,10 @@ services:
 
   # Fault-injection canary: healthy at /status/200. In Phase 2 we re-point this
   # to https://httpbin.org/status/503 to trigger a REAL Datadog failure on
-  # purpose, without ever taking down your actual portfolio.
+  # purpose, without ever taking down your actual portfolio. tick_every is 60s
+  # (the API-test minimum) so a triggered failure is detected quickly.
   - name: httpbin-canary
     url: https://httpbin.org/status/200
     method: GET
     expected_status: 200
+    tick_every: 60

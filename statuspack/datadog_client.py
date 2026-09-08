@@ -108,13 +108,25 @@ class DatadogClient:
     def update_api_test(self, public_id: str, payload: dict[str, Any]) -> dict[str, Any]:
         return self._request("PUT", f"/api/v1/synthetics/tests/api/{public_id}", json=payload)
 
+    def get_test(self, public_id: str) -> dict[str, Any]:
+        return self._request("GET", f"/api/v1/synthetics/tests/{public_id}")
+
     def get_test_results(self, public_id: str) -> list[dict[str, Any]]:
         data = self._request("GET", f"/api/v1/synthetics/tests/{public_id}/results")
         return data.get("results", []) if isinstance(data, dict) else []
 
+    def trigger_tests(self, public_ids: list[str]) -> dict[str, Any]:
+        """Run one or more tests on demand (bypasses the tick schedule)."""
+        body = {"tests": [{"public_id": pid} for pid in public_ids]}
+        return self._request("POST", "/api/v1/synthetics/tests/trigger", json=body)
+
     # --- monitors ----------------------------------------------------------
-    def get_monitor(self, monitor_id: int) -> dict[str, Any]:
-        return self._request("GET", f"/api/v1/monitor/{monitor_id}")
+    def get_monitor(self, monitor_id: int, group_states: str = "all") -> dict[str, Any]:
+        return self._request(
+            "GET",
+            f"/api/v1/monitor/{monitor_id}",
+            params={"group_states": group_states},
+        )
 
     def synthetics_ui_url(self, public_id: str) -> str:
         return f"{self.settings.app_base}/synthetics/details/{public_id}"

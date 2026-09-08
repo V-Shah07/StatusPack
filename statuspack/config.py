@@ -12,14 +12,31 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 import yaml
-from dotenv import load_dotenv
+from dotenv import dotenv_values
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_SERVICES_PATH = REPO_ROOT / "services.yaml"
+DEFAULT_DOTENV_PATH = REPO_ROOT / ".env"
 
 # Consistent tag applied to every StatusPack-managed Datadog resource. Used for
 # idempotent lookups so we update rather than duplicate on re-run.
 MANAGED_TAG = "statuspack:true"
+
+
+def read_env(key: str, default: str = "", *, dotenv_path: str | Path | None = None) -> str:
+    """Read a config value, preferring a local .env file over the process env.
+
+    Uses dotenv_values (which does NOT mutate os.environ) so calling this never
+    clobbers unrelated environment variables. .env wins because this container
+    may carry stale/placeholder values in the real process environment; in CI
+    (no .env) the process environment is used.
+    """
+    path = Path(dotenv_path) if dotenv_path is not None else DEFAULT_DOTENV_PATH
+    file_vals = dotenv_values(path) if path.exists() else {}
+    value = file_vals.get(key)
+    if value:
+        return value
+    return os.environ.get(key, default)
 
 
 @dataclass(frozen=True)
@@ -66,18 +83,17 @@ class Config:
     services: list[ServiceTarget] = field(default_factory=list)
 
 
-def load_datadog_settings(require: bool = True) -> DatadogSettings:
-    """Load Datadog credentials from the environment.
+def load_datadog_settings(
+    require: bool = True, *, dotenv_path: str | Path | None = None
+) -> DatadogSettings:
+    """Load Datadog credentials, preferring .env over the process environment.
 
     Raises RuntimeError with an actionable message if required keys are missing
     (unless require=False, used by tests).
     """
-    # override=True so a local .env wins over stale/placeholder values that may
-    # already be present in the process environment.
-    load_dotenv(REPO_ROOT / ".env", override=True)
-    api_key = os.environ.get("DD_API_KEY", "")
-    app_key = os.environ.get("DD_APP_KEY", "")
-    site = os.environ.get("DD_SITE", "datadoghq.com")
+    api_key = read_env("DD_API_KEY", dotenv_path=dotenv_path)
+    app_key = read_env("DD_APP_KEY", dotenv_path=dotenv_path)
+    site = read_env("DD_SITE", "datadoghq.com", dotenv_path=dotenv_path)
 
     if require and (not api_key or not app_key):
         missing = [k for k, v in (("DD_API_KEY", api_key), ("DD_APP_KEY", app_key)) if not v]
