@@ -4,6 +4,29 @@ This file tracks each phase's **PROVE IT** evidence. Per the README's honesty
 rule, no number or artifact here is fabricated — a phase is only marked DONE when
 its evidence is a real committed artifact.
 
+## Phase 3 — Public status page
+
+**Status: ✅ DONE — renders real Datadog result history + the real Phase 2 outage.**
+
+`GET /` pulls each test's recent results from the Synthetics API and renders a
+server-side Jinja2 page: per-service current status, uptime % over the window,
+and an incident timeline from SQLite.
+
+**PROVE IT (real):** `evidence/phase3/status.png` + `status.html`, rendered
+2026-09-08T03:56 UTC against the live org:
+
+| Service | Status | Uptime (window) |
+|---|---|---|
+| vivaan-portfolio | Operational | 100.0% (15/15), last 77 ms |
+| example-home | Operational | 100.0% (15/15), last 30 ms |
+| httpbin-canary | Operational | **72.22% (39/54)** — the Phase 2 outage dip |
+
+Past-incidents table shows the real outage: httpbin-canary down
+`03:50:28` → recovered `03:51:27`, **59 s**, resolved — matching Phase 2's
+Datadog timestamps. Canary is green again post-recovery; its uptime bar visibly
+reflects the outage. Regenerate: `python -m statuspack.render_status`
+(screenshot via Playwright/Chromium — command in commit history).
+
 ## Phase 2 — Monitors + real alert delivery
 
 **Status: ✅ Core proven with a REAL triggered failure (2026-09-08). Last-mile

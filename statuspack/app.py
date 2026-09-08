@@ -15,15 +15,34 @@ from __future__ import annotations
 import json
 import os
 from datetime import UTC, datetime
+from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from statuspack import discord
+from statuspack.config import load_config
+from statuspack.datadog_client import DatadogClient
 from statuspack.incidents import IncidentStore
+from statuspack.status_service import build_context
 from statuspack.webhook import parse_alert
 
 app = FastAPI(title="StatusPack", version="0.1.0")
+
+_TEMPLATES = Environment(
+    loader=FileSystemLoader(str(Path(__file__).parent / "templates")),
+    autoescape=select_autoescape(["html"]),
+)
+
+
+def render_status_page(db_path: str | None = None) -> str:
+    """Render the status page HTML from live Datadog results + the incident log."""
+    config = load_config()
+    client = DatadogClient(config.datadog)
+    store = IncidentStore(db_path or _db_path())
+    context = build_context(config, client, store)
+    return _TEMPLATES.get_template("status.html").render(**context)
 
 
 def _db_path() -> str:
@@ -87,5 +106,9 @@ async def datadog_webhook(request: Request) -> JSONResponse:
 
 @app.get("/", response_class=HTMLResponse)
 def status_page() -> HTMLResponse:
-    # Full status page arrives in Phase 3; placeholder keeps the route live.
-    return HTMLResponse("<h1>StatusPack</h1><p>Status page arrives in Phase 3.</p>")
+    try:
+        return HTMLResponse(render_status_page())
+    except Exception as exc:  # pragma: no cover - defensive; surfaced on the page
+        return HTMLResponse(
+            f"<h1>StatusPack</h1><p>Could not render status: {exc}</p>", status_code=500
+        )
