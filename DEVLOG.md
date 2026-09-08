@@ -6,7 +6,22 @@ its evidence is a real committed artifact.
 
 ## Phase 1 — Provision real Datadog Synthetic tests
 
-**Status: CODE COMPLETE, PROVE IT BLOCKED on Datadog credentials.**
+**Status: ✅ DONE — proven against real Datadog org 2040770 on 2026-09-08.**
+
+**PROVE IT (real):** `python -m statuspack.provision` created 3 live Datadog
+Synthetic API tests in org `2040770` (owner: Vivaan Shah). Raw API responses
+committed under `evidence/phase1/`:
+
+| Service | public_id | monitor_id | URL | Regions |
+|---|---|---|---|---|
+| vivaan-portfolio | `ubu-7wg-emr` | 319919693 | https://vivaanportfolio.vercel.app/ | us-east-1, eu-west-1, ap-southeast-1 |
+| example-home | `gd8-7b6-2di` | — | https://example.com/ | us-east-1, eu-west-1, ap-southeast-1 |
+| httpbin-canary | `izu-g6a-wku` | — | https://httpbin.org/status/200 | us-east-1, eu-west-1, ap-southeast-1 |
+
+- **N = 3** services monitored, **M = 3** global regions (resume-bullet inputs).
+- **Idempotency proven:** first run logged `created`, immediate re-run logged
+  `updated`, and the org holds exactly 3 `statuspack:true` tests (no duplicates).
+- Datadog auto-created a Monitor per synthetic test — reused in Phase 2.
 
 Built:
 - `services.yaml` — 3 target services (idempotent, tagged `statuspack:true` + `service:<name>`).

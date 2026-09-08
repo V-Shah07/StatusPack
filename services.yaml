@@ -28,17 +28,22 @@ defaults:
   min_location_failed: 1
 
 services:
-  - name: statuspack-demo-api
+  # Your real deployed site — the credible primary target.
+  - name: vivaan-portfolio
+    url: https://vivaanportfolio.vercel.app/
+    method: GET
+    expected_status: 200
+
+  # A second real, always-up reference endpoint.
+  - name: example-home
+    url: https://example.com/
+    method: GET
+    expected_status: 200
+
+  # Fault-injection canary: healthy at /status/200. In Phase 2 we re-point this
+  # to https://httpbin.org/status/503 to trigger a REAL Datadog failure on
+  # purpose, without ever taking down your actual portfolio.
+  - name: httpbin-canary
     url: https://httpbin.org/status/200
-    method: GET
-    expected_status: 200
-
-  - name: statuspack-demo-web
-    url: https://httpbin.org/html
-    method: GET
-    expected_status: 200
-
-  - name: statuspack-demo-health
-    url: https://httpbin.org/get
     method: GET
     expected_status: 200
