@@ -115,6 +115,10 @@ class DatadogClient:
         data = self._request("GET", f"/api/v1/synthetics/tests/{public_id}/results")
         return data.get("results", []) if isinstance(data, dict) else []
 
+    def get_result_detail(self, public_id: str, result_id: str) -> dict[str, Any]:
+        """Full detail for one result (includes httpStatusCode, assertionResults)."""
+        return self._request("GET", f"/api/v1/synthetics/tests/{public_id}/results/{result_id}")
+
     def trigger_tests(self, public_ids: list[str]) -> dict[str, Any]:
         """Run one or more tests on demand (bypasses the tick schedule)."""
         body = {"tests": [{"public_id": pid} for pid in public_ids]}
