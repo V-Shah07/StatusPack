@@ -1,0 +1,44 @@
+# StatusPack target services.
+#
+# Each entry becomes ONE Datadog Synthetic API test (POST /api/v1/synthetics/tests/api).
+# Datadog's global infrastructure runs the checks on the schedule below — StatusPack
+# only consumes the results. Provisioning is idempotent: re-running `python -m
+# statuspack.provision` updates the existing test (matched by the `statuspack:true`
+# + `service:<name>` tags) instead of creating a duplicate.
+#
+# NOTE: The defaults below use publicly controllable endpoints (httpbin) so a real
+# failure can be triggered on purpose in Phase 2 by pointing the test at a 5xx path.
+# Swap these for your own deployed side-project URLs when you have them — the test
+# type ("api"/http) and the rest of the pipeline stay identical.
+
+defaults:
+  # How often Datadog runs each check, in seconds (min 60 for API tests).
+  tick_every: 300
+  # Assert the endpoint responds within this many milliseconds.
+  response_time_ms: 5000
+  # Datadog managed locations the check runs from. These map directly to the
+  # "M global regions" resume bullet. Keep >= 2 for multi-region signal.
+  locations:
+    - aws:us-east-1
+    - aws:eu-west-1
+    - aws:ap-southeast-1
+  # Alert only after the failure persists this long (seconds). 0 = alert on first fail.
+  min_failure_duration: 0
+  # Number of locations that must fail before the test is considered failing.
+  min_location_failed: 1
+
+services:
+  - name: statuspack-demo-api
+    url: https://httpbin.org/status/200
+    method: GET
+    expected_status: 200
+
+  - name: statuspack-demo-web
+    url: https://httpbin.org/html
+    method: GET
+    expected_status: 200
+
+  - name: statuspack-demo-health
+    url: https://httpbin.org/get
+    method: GET
+    expected_status: 200
