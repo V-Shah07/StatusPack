@@ -1,0 +1,350 @@
+{
+  "accuracy": 0.95,
+  "catch_rate": 1.0,
+  "caught": 9,
+  "false_positive_rate": 0.0909,
+  "false_positives": 1,
+  "generated_at": "2026-09-08T05:04:12.099160+00:00",
+  "grounded_total": 11,
+  "judge_model": "claude-opus-5",
+  "labeled_set_size": 20,
+  "per_item": [
+    {
+      "confidence": 0.95,
+      "correct": true,
+      "id": "g01-canary-503-real",
+      "label": "grounded",
+      "predicted": "grounded",
+      "unsupported_claims": []
+    },
+    {
+      "confidence": 0.98,
+      "correct": true,
+      "id": "u01-canary-503-dbpool",
+      "label": "ungrounded",
+      "predicted": "ungrounded",
+      "unsupported_claims": [
+        "caused by database connection pool exhaustion on the backend"
+      ]
+    },
+    {
+      "confidence": 0.9,
+      "correct": true,
+      "id": "g02-portfolio-timeout",
+      "label": "grounded",
+      "predicted": "grounded",
+      "unsupported_claims": []
+    },
+    {
+      "confidence": 0.98,
+      "correct": true,
+      "id": "u02-portfolio-timeout-deploy",
+      "label": "ungrounded",
+      "predicted": "ungrounded",
+      "unsupported_claims": [
+        "bad deploy pushed ~10 minutes earlier",
+        "broke the eu-west-1 edge node"
+      ]
+    },
+    {
+      "confidence": 0.96,
+      "correct": true,
+      "id": "g03-api-500-partial",
+      "label": "grounded",
+      "predicted": "grounded",
+      "unsupported_claims": []
+    },
+    {
+      "confidence": 0.99,
+      "correct": true,
+      "id": "u03-api-500-memory",
+      "label": "ungrounded",
+      "predicted": "ungrounded",
+      "unsupported_claims": [
+        "server ran out of memory and crashed",
+        "server restarted itself a minute later"
+      ]
+    },
+    {
+      "confidence": 0.95,
+      "correct": true,
+      "id": "g04-slow-but-up",
+      "label": "grounded",
+      "predicted": "grounded",
+      "unsupported_claims": []
+    },
+    {
+      "confidence": 0.97,
+      "correct": true,
+      "id": "u04-slow-cdn",
+      "label": "ungrounded",
+      "predicted": "ungrounded",
+      "unsupported_claims": [
+        "slowdown caused by CDN cache miss spike",
+        "origin fetches forced by cache misses"
+      ]
+    },
+    {
+      "confidence": 0.9,
+      "correct": true,
+      "id": "g05-single-region-503",
+      "label": "grounded",
+      "predicted": "grounded",
+      "unsupported_claims": []
+    },
+    {
+      "confidence": 0.97,
+      "correct": true,
+      "id": "u05-single-region-maintenance",
+      "label": "ungrounded",
+      "predicted": "ungrounded",
+      "unsupported_claims": [
+        "scheduled maintenance in the Singapore datacenter",
+        "the region was taken offline by maintenance"
+      ]
+    },
+    {
+      "confidence": 0.93,
+      "correct": true,
+      "id": "g06-dns-failure",
+      "label": "grounded",
+      "predicted": "grounded",
+      "unsupported_claims": []
+    },
+    {
+      "confidence": 0.97,
+      "correct": true,
+      "id": "u06-dns-registrar",
+      "label": "ungrounded",
+      "predicted": "ungrounded",
+      "unsupported_claims": [
+        "domain registration expired caused the DNS failure"
+      ]
+    },
+    {
+      "confidence": 0.93,
+      "correct": true,
+      "id": "g07-brief-blip",
+      "label": "grounded",
+      "predicted": "grounded",
+      "unsupported_claims": []
+    },
+    {
+      "confidence": 0.99,
+      "correct": true,
+      "id": "u07-brief-blip-attack",
+      "label": "ungrounded",
+      "predicted": "ungrounded",
+      "unsupported_claims": [
+        "service was under a DDoS attack",
+        "load balancer overwhelmed causing the 502"
+      ]
+    },
+    {
+      "confidence": 0.72,
+      "correct": true,
+      "id": "g08-multi-status",
+      "label": "grounded",
+      "predicted": "grounded",
+      "unsupported_claims": []
+    },
+    {
+      "confidence": 0.98,
+      "correct": true,
+      "id": "u08-multi-status-upstream",
+      "label": "ungrounded",
+      "predicted": "ungrounded",
+      "unsupported_claims": [
+        "Stripe payment API was down upstream",
+        "upstream failures cascaded into gateway timeouts"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "correct": true,
+      "id": "g09-recovered-note",
+      "label": "grounded",
+      "predicted": "grounded",
+      "unsupported_claims": []
+    },
+    {
+      "confidence": 0.8,
+      "correct": false,
+      "id": "g10-two-region-500",
+      "label": "grounded",
+      "predicted": "ungrounded",
+      "unsupported_claims": [
+        "ap-southeast-1 was unaffected \u2014 that region is not present in the data"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "correct": true,
+      "id": "u09-timeout-network-partition",
+      "label": "ungrounded",
+      "predicted": "ungrounded",
+      "unsupported_claims": [
+        "network partition between availability zones",
+        "app cut off from its database"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "correct": true,
+      "id": "g11-all-pass-context",
+      "label": "grounded",
+      "predicted": "grounded",
+      "unsupported_claims": []
+    }
+  ],
+  "ungrounded_total": 9,
+  "verdicts_raw": [
+    {
+      "confidence": 0.95,
+      "raw": "{\"verdict\": \"grounded\", \"confidence\": 0.95, \"unsupported_claims\": []}",
+      "unsupported_claims": [],
+      "verdict": "grounded"
+    },
+    {
+      "confidence": 0.98,
+      "raw": "{\"verdict\": \"ungrounded\", \"confidence\": 0.98, \"unsupported_claims\": [\"caused by database connection pool exhaustion on the backend\"]}",
+      "unsupported_claims": [
+        "caused by database connection pool exhaustion on the backend"
+      ],
+      "verdict": "ungrounded"
+    },
+    {
+      "confidence": 0.9,
+      "raw": "{\"verdict\": \"grounded\", \"confidence\": 0.9, \"unsupported_claims\": []}",
+      "unsupported_claims": [],
+      "verdict": "grounded"
+    },
+    {
+      "confidence": 0.98,
+      "raw": "{\"verdict\": \"ungrounded\", \"confidence\": 0.98, \"unsupported_claims\": [\"bad deploy pushed ~10 minutes earlier\", \"broke the eu-west-1 edge node\"]}",
+      "unsupported_claims": [
+        "bad deploy pushed ~10 minutes earlier",
+        "broke the eu-west-1 edge node"
+      ],
+      "verdict": "ungrounded"
+    },
+    {
+      "confidence": 0.96,
+      "raw": "{\"verdict\": \"grounded\", \"confidence\": 0.96, \"unsupported_claims\": []}",
+      "unsupported_claims": [],
+      "verdict": "grounded"
+    },
+    {
+      "confidence": 0.99,
+      "raw": "{\"verdict\": \"ungrounded\", \"confidence\": 0.99, \"unsupported_claims\": [\"server ran out of memory and crashed\", \"server restarted itself a minute later\"]}",
+      "unsupported_claims": [
+        "server ran out of memory and crashed",
+        "server restarted itself a minute later"
+      ],
+      "verdict": "ungrounded"
+    },
+    {
+      "confidence": 0.95,
+      "raw": "{\"verdict\": \"grounded\", \"confidence\": 0.95, \"unsupported_claims\": []}",
+      "unsupported_claims": [],
+      "verdict": "grounded"
+    },
+    {
+      "confidence": 0.97,
+      "raw": "{\"verdict\": \"ungrounded\", \"confidence\": 0.97, \"unsupported_claims\": [\"slowdown caused by CDN cache miss spike\", \"origin fetches forced by cache misses\"]}",
+      "unsupported_claims": [
+        "slowdown caused by CDN cache miss spike",
+        "origin fetches forced by cache misses"
+      ],
+      "verdict": "ungrounded"
+    },
+    {
+      "confidence": 0.9,
+      "raw": "{\"verdict\": \"grounded\", \"confidence\": 0.9, \"unsupported_claims\": []}",
+      "unsupported_claims": [],
+      "verdict": "grounded"
+    },
+    {
+      "confidence": 0.97,
+      "raw": "{\"verdict\": \"ungrounded\", \"confidence\": 0.97, \"unsupported_claims\": [\"scheduled maintenance in the Singapore datacenter\", \"the region was taken offline by maintenance\"]}",
+      "unsupported_claims": [
+        "scheduled maintenance in the Singapore datacenter",
+        "the region was taken offline by maintenance"
+      ],
+      "verdict": "ungrounded"
+    },
+    {
+      "confidence": 0.93,
+      "raw": "{\"verdict\": \"grounded\", \"confidence\": 0.93, \"unsupported_claims\": []}",
+      "unsupported_claims": [],
+      "verdict": "grounded"
+    },
+    {
+      "confidence": 0.97,
+      "raw": "{\"verdict\": \"ungrounded\", \"confidence\": 0.97, \"unsupported_claims\": [\"domain registration expired caused the DNS failure\"]}",
+      "unsupported_claims": [
+        "domain registration expired caused the DNS failure"
+      ],
+      "verdict": "ungrounded"
+    },
+    {
+      "confidence": 0.93,
+      "raw": "{\"verdict\": \"grounded\", \"confidence\": 0.93, \"unsupported_claims\": []}",
+      "unsupported_claims": [],
+      "verdict": "grounded"
+    },
+    {
+      "confidence": 0.99,
+      "raw": "{\"verdict\": \"ungrounded\", \"confidence\": 0.99, \"unsupported_claims\": [\"service was under a DDoS attack\", \"load balancer overwhelmed causing the 502\"]}",
+      "unsupported_claims": [
+        "service was under a DDoS attack",
+        "load balancer overwhelmed causing the 502"
+      ],
+      "verdict": "ungrounded"
+    },
+    {
+      "confidence": 0.72,
+      "raw": "{\"verdict\": \"grounded\", \"confidence\": 0.72, \"unsupported_claims\": []}",
+      "unsupported_claims": [],
+      "verdict": "grounded"
+    },
+    {
+      "confidence": 0.98,
+      "raw": "{\"verdict\": \"ungrounded\", \"confidence\": 0.98, \"unsupported_claims\": [\"Stripe payment API was down upstream\", \"upstream failures cascaded into gateway timeouts\"]}",
+      "unsupported_claims": [
+        "Stripe payment API was down upstream",
+        "upstream failures cascaded into gateway timeouts"
+      ],
+      "verdict": "ungrounded"
+    },
+    {
+      "confidence": 0.92,
+      "raw": "{\"verdict\": \"grounded\", \"confidence\": 0.92, \"unsupported_claims\": []}",
+      "unsupported_claims": [],
+      "verdict": "grounded"
+    },
+    {
+      "confidence": 0.8,
+      "raw": "{\"verdict\": \"ungrounded\", \"confidence\": 0.8, \"unsupported_claims\": [\"ap-southeast-1 was unaffected \u2014 that region is not present in the data\"]}",
+      "unsupported_claims": [
+        "ap-southeast-1 was unaffected \u2014 that region is not present in the data"
+      ],
+      "verdict": "ungrounded"
+    },
+    {
+      "confidence": 0.98,
+      "raw": "{\"verdict\": \"ungrounded\", \"confidence\": 0.98, \"unsupported_claims\": [\"network partition between availability zones\", \"app cut off from its database\"]}",
+      "unsupported_claims": [
+        "network partition between availability zones",
+        "app cut off from its database"
+      ],
+      "verdict": "ungrounded"
+    },
+    {
+      "confidence": 0.92,
+      "raw": "{\"verdict\": \"grounded\", \"confidence\": 0.92, \"unsupported_claims\": []}",
+      "unsupported_claims": [],
+      "verdict": "grounded"
+    }
+  ]
+}

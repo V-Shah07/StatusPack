@@ -1,0 +1,35 @@
+{
+  "cost_usd": 0.00759,
+  "facts": {
+    "duration_s": 13.8,
+    "expected_status": 200,
+    "failed_checks": 5,
+    "failing_locations": [
+      "aws:ap-southeast-1",
+      "aws:eu-west-1",
+      "aws:us-east-1"
+    ],
+    "failure_reasons": [
+      "INCORRECT_ASSERTION",
+      "statusCode is expected 200, got 503"
+    ],
+    "first_fail": "2026-09-08T05:02:27.964000+00:00",
+    "last_fail": "2026-09-08T05:02:41.772000+00:00",
+    "public_id": "izu-g6a-wku",
+    "response_ms_max": 902.0,
+    "response_ms_min": 63.4,
+    "service": "httpbin-canary",
+    "status_codes": {
+      "503": 5
+    },
+    "total_checks_in_window": 150
+  },
+  "generated_at": "2026-09-08T05:02:54.132682+00:00",
+  "input_tokens": 458,
+  "latency_s": 4.221,
+  "ml_app": "statuspack",
+  "model": "claude-opus-5",
+  "output_tokens": 212,
+  "text": "Between 05:02:27 and 05:02:41 UTC on 2026-09-08, the httpbin-canary service (public ID izu-g6a-wku) recorded 5 failed checks out of 150 in the monitoring window, lasting approximately 13.8 seconds. All 5 failures returned HTTP 503 instead of the expected 200, triggering an incorrect assertion, and originated from three locations: aws:ap-southeast-1, aws:eu-west-1, and aws:us-east-1. Response times during the window ranged from 63.4 ms to 902.0 ms; the cause is not identifiable from the available monitoring data.",
+  "traced_in_llmobs": true
+}

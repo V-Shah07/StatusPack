@@ -6,8 +6,20 @@ its evidence is a real committed artifact.
 
 ## Phase 5 — Grounding eval (LLM-as-judge)
 
-**Status: ✅ CODE COMPLETE + labeled set committed. PROVE IT (judge run) blocked
-on a real ANTHROPIC_API_KEY.**
+**Status: ✅ DONE — real judge run on 2026-09-08 (claude-opus-5).**
+
+**PROVE IT (real):** `python -m statuspack.phase5_eval` ran the independent judge
+over all 20 labeled summaries. Results in `evidence/phase5/eval_results.json`:
+
+- **Catch rate: 100.0% (9/9** injected hallucinations flagged) — every ungrounded
+  root-cause claim (db pool, deploy, OOM, DDoS, maintenance, expired domain,
+  upstream Stripe, network partition, CDN) was caught.
+- **False-positive rate: 9.1% (1/11** grounded summaries wrongly flagged — item
+  `g10-two-region-500`). An honest, non-padded number.
+- **Accuracy: 95.0%** overall.
+
+This is the "blocking X% of ungrounded claims across N=20 examples" bullet: **100%
+catch on 9 hallucinations, 9.1% false-positive on 11 grounded, 20-item set.**
 
 - `evals/labeled_set.json`: **20 labeled items** (11 grounded, 9 ungrounded). Each
   pairs raw Datadog facts with a candidate summary; the 9 ungrounded ones inject a
@@ -28,8 +40,27 @@ verdicts. This is the "blocking X% of ungrounded claims across N=20 examples" bu
 
 ## Phase 4 — LLM incident summarizer, traced in LLM Observability
 
-**Status: ✅ CODE COMPLETE. PROVE IT (real trace w/ tokens+cost) blocked on a real
-ANTHROPIC_API_KEY.**
+**Status: ✅ DONE — real traced summary on 2026-09-08 (claude-opus-5).**
+
+**PROVE IT (real):** Triggered a fresh canary 503, then
+`python -m statuspack.phase4_summarize` generated a grounded summary via Claude,
+wrapped in a Datadog LLM Observability span. Verified in Datadog by querying the
+LLM Obs spans API (`@ml_app:statuspack`) — `evidence/phase4/llmobs_trace.json` +
+`llmobs_trace_summary.json`:
+
+| Field | Value (from Datadog's own LLM Obs span) |
+|---|---|
+| ml_app | `statuspack` |
+| model | `claude-opus-5` (provider anthropic) |
+| trace_id | `6a9f96f9000000004c6a51e009a7ef48` |
+| input / output / total tokens | 458 / 212 / **670** |
+| cost | **$0.00759** |
+| latency | **4.221 s** |
+
+The summary stayed grounded ("the cause is not identifiable from the available
+monitoring data") — no invented root cause. Full summary + numbers in
+`evidence/phase4/summary.json`. This backs the "traced every AI summary end-to-end
+in Datadog LLM Observability, tracking token cost and latency" bullet.
 
 - `statuspack/summarizer.py`: pulls real failure data from Datadog (failing checks,
   regions, actual vs. expected HTTP status via the detailed-result API, response
@@ -44,10 +75,8 @@ ANTHROPIC_API_KEY.**
 → a real trace in Datadog LLM Observability (ml_app `statuspack`) with token count +
 cost, plus the committed summary JSON.
 
-> **Single remaining blocker for Phases 4 & 5:** a real `ANTHROPIC_API_KEY`
-> (currently a dummy, per instruction). The Datadog side (LLM Obs ingestion, the
-> real failure data) is fully wired and validated. Provide the key and both PROVE
-> ITs run in two commands.
+> **Phases 4 & 5 unblocked and proven** with a real `ANTHROPIC_API_KEY` on
+> 2026-09-08 (SDK bumped to anthropic 1.4.0 for claude-opus-5 support).
 
 ## Phase 3 — Public status page
 
