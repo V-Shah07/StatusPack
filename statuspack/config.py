@@ -72,7 +72,9 @@ def load_datadog_settings(require: bool = True) -> DatadogSettings:
     Raises RuntimeError with an actionable message if required keys are missing
     (unless require=False, used by tests).
     """
-    load_dotenv(REPO_ROOT / ".env")
+    # override=True so a local .env wins over stale/placeholder values that may
+    # already be present in the process environment.
+    load_dotenv(REPO_ROOT / ".env", override=True)
     api_key = os.environ.get("DD_API_KEY", "")
     app_key = os.environ.get("DD_APP_KEY", "")
     site = os.environ.get("DD_SITE", "datadoghq.com")
