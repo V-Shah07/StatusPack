@@ -4,6 +4,41 @@ This file tracks each phase's **PROVE IT** evidence. Per the README's honesty
 rule, no number or artifact here is fabricated — a phase is only marked DONE when
 its evidence is a real committed artifact.
 
+## Phase 2 — Monitors + real alert delivery
+
+**Status: ✅ Core proven with a REAL triggered failure (2026-09-08). Last-mile
+Datadog→app webhook + Discord deferred (see blocker below).**
+
+Datadog auto-creates a Monitor per synthetic API test (fires on failure &
+recovery). We triggered a **real** failure: re-pointed `httpbin-canary` at
+`https://httpbin.org/status/503`, let Datadog observe it across all 3 regions,
+then restored it. All timestamps below are real (evidence/phase2/):
+
+| Event | Time (UTC) | From break |
+|---|---|---|
+| `t_break` — we broke the endpoint | 03:50:26.6 | 0s |
+| `t_first_fail` — Datadog recorded FAILED checks (all 3 regions) | 03:50:28.2 | **1.6s** |
+| `t_alert` — Monitor TRIGGERED (Datadog would page) | 03:50:57 | **30.4s** |
+| `t_restore` — we restored the endpoint | 03:51:03.0 | — |
+| `t_recovered` — Monitor RECOVERED | 03:51:27 | outage **60.4s** |
+
+- **Paging latency = ~30s** from a real triggered failure (break → monitor
+  Triggered). This is the "paging on-call within Xs" resume-bullet number.
+- Raw multi-region result history: `evidence/phase2/canary_results.json`
+  (independently shows all-green before, all-3-regions-red at 03:50:28, green after).
+- **App hop proven** over real HTTP: `evidence/phase2/app_webhook_proof.json` — a
+  Datadog-shaped payload (built from the real incident) POSTed to the running
+  FastAPI server opened then resolved incident #1; `evidence/phase2/incident_log.json`
+  is the resulting SQLite record with the real down/recovery timestamps.
+
+**Deferred (needs the user), not a fabrication:** Datadog's monitor webhook can't
+reach this sandbox (no public inbound URL), and `DISCORD_WEBHOOK_URL` is still a
+placeholder. So the *real* "Datadog delivered the webhook" and "Discord message
+landed" timestamps aren't captured yet. Options to finish this hop: (a) a public
+tunnel/deploy for the app + a real Discord webhook, or (b) accept the ~30s
+Datadog-side paging latency as the headline number (the app+Discord path is
+code-complete and locally proven). See chat for the decision.
+
 ## Phase 1 — Provision real Datadog Synthetic tests
 
 **Status: ✅ DONE — proven against real Datadog org 2040770 on 2026-09-08.**

@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1,
+    "service": "httpbin-canary",
+    "public_id": "izu-g6a-wku",
+    "monitor_id": 319919697,
+    "status": "resolved",
+    "started_at": "2026-09-08T03:50:28.167000+00:00",
+    "detected_at": "2026-09-08T03:53:41.641088+00:00",
+    "resolved_at": "2026-09-08T03:51:27+00:00",
+    "alert_transition": "Triggered",
+    "summary": null,
+    "raw_alert": "{\"transition\": \"Triggered\", \"title\": \"[Triggered] StatusPack - httpbin-canary\", \"monitor_id\": \"319919697\", \"public_id\": \"izu-g6a-wku\", \"tags\": \"statuspack:true,service:httpbin-canary,env:prod\", \"date\": \"1788839428167\"}"
+  }
+]
