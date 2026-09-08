@@ -4,6 +4,51 @@ This file tracks each phase's **PROVE IT** evidence. Per the README's honesty
 rule, no number or artifact here is fabricated — a phase is only marked DONE when
 its evidence is a real committed artifact.
 
+## Phase 5 — Grounding eval (LLM-as-judge)
+
+**Status: ✅ CODE COMPLETE + labeled set committed. PROVE IT (judge run) blocked
+on a real ANTHROPIC_API_KEY.**
+
+- `evals/labeled_set.json`: **20 labeled items** (11 grounded, 9 ungrounded). Each
+  pairs raw Datadog facts with a candidate summary; the 9 ungrounded ones inject a
+  specific unsupported root cause (db pool exhaustion, bad deploy, OOM crash, DDoS,
+  datacenter maintenance, expired domain, upstream Stripe, network partition, CDN
+  cache misses). The grounded ones derive from real incidents incl. the Phase 2 503.
+- `statuspack/judge.py`: an **independent** judge (separate Claude call from the
+  summarizer) → `{verdict, confidence, unsupported_claims}`; pure metric computation
+  for catch rate + false-positive rate.
+- `statuspack/phase5_eval.py`: runs the judge over the set, records the score in
+  SQLite, writes `evidence/phase5/eval_results.json`.
+- 6 unit tests (labeled-set integrity, judge prompt independence, output parsing,
+  metric math, mocked judge run).
+
+**PROVE IT to produce (needs Anthropic key):** `python -m statuspack.phase5_eval`
+→ catch rate / false-positive rate over the 20-item set, committed with per-item
+verdicts. This is the "blocking X% of ungrounded claims across N=20 examples" bullet.
+
+## Phase 4 — LLM incident summarizer, traced in LLM Observability
+
+**Status: ✅ CODE COMPLETE. PROVE IT (real trace w/ tokens+cost) blocked on a real
+ANTHROPIC_API_KEY.**
+
+- `statuspack/summarizer.py`: pulls real failure data from Datadog (failing checks,
+  regions, actual vs. expected HTTP status via the detailed-result API, response
+  times, duration); a grounded prompt that states ONLY what the data shows; a Claude
+  call wrapped in a **Datadog LLM Observability** `llm` span (input/output/tokens/
+  cost/latency), submitted agentlessly with the (valid) DD API key; per-model cost calc.
+- `statuspack/phase4_summarize.py`: runner that generates the traced summary from the
+  real incident, stores it on the incident, writes `evidence/phase4/summary.json`.
+- 5 unit tests with a mocked Anthropic client. `ddtrace` LLM Obs import verified.
+
+**PROVE IT to produce (needs Anthropic key):** `python -m statuspack.phase4_summarize`
+→ a real trace in Datadog LLM Observability (ml_app `statuspack`) with token count +
+cost, plus the committed summary JSON.
+
+> **Single remaining blocker for Phases 4 & 5:** a real `ANTHROPIC_API_KEY`
+> (currently a dummy, per instruction). The Datadog side (LLM Obs ingestion, the
+> real failure data) is fully wired and validated. Provide the key and both PROVE
+> ITs run in two commands.
+
 ## Phase 3 — Public status page
 
 **Status: ✅ DONE — renders real Datadog result history + the real Phase 2 outage.**
